@@ -2,11 +2,11 @@
   <main>
     <router-view/>
     <van-tabbar v-model="active">
-      <van-tabbar-item 
-        :to="{name: 'goods'}" 
+      <van-tabbar-item
+        :to="{name: 'goods'}"
         icon="cart">首页</van-tabbar-item>
       <van-tabbar-item
-        :to="{name: 'my'}" 
+        :to="{name: 'my'}"
         icon="contact">我的</van-tabbar-item>
     </van-tabbar>
   </main>
@@ -19,6 +19,13 @@ export default {
     return {
       active: 0
     };
+  },
+  created() {
+    const activeMap = {
+      goods: 0,
+      my: 1
+    };
+    this.active = activeMap[this.$route.name];
   }
 };
 </script>
