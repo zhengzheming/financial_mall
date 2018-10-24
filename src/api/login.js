@@ -1,7 +1,7 @@
 import request from "axios";
 
 export function login(data) {
-  request({
+  return request({
     method: "post",
     url: "/api/login",
     data
@@ -9,7 +9,7 @@ export function login(data) {
 }
 
 export function getVercode(data) {
-  request({
+  return request({
     method: "post",
     url: "/api/vercode",
     data

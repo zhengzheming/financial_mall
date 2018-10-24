@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import Vant from "vant";
 import "vant/lib/vant-css/index.css";
+import "@/services/interceptors";
 
 Vue.use(Vant);
 

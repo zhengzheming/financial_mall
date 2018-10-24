@@ -25,6 +25,7 @@
           placeholder="请输入短信验证码" >
           <span
             slot="button"
+            :class="{disabled: disableVercode}"
             class="btn-vercode"
             @click="getVercode">{{ vercodeText }}</span>
         </van-field>
@@ -36,18 +37,11 @@
         size="large"
         class="btn-login">登录</van-button>
     </form>
-    <!--<van-number-keyboard-->
-    <!--:show="showKeyboard"-->
-    <!--theme="custom"-->
-    <!--close-button-text="完成"-->
-    <!--@input="onInput"-->
-    <!--@delete="onDelete"-->
-    <!--@close="onClose"-->
-    <!--/>-->
   </div>
 </template>
 
 <script>
+import api from "@/api";
 export default {
   name: "Login",
   data() {
@@ -57,7 +51,8 @@ export default {
       showKeyboard: true,
       vercodeText: "获取验证码",
       disableLogin: true,
-      errMessage: ""
+      errMessage: "",
+      disableVercode: false
     };
   },
   methods: {
@@ -72,10 +67,36 @@ export default {
       this.showKeyboard = false;
       this.$refs.vercode.$el.querySelector("input").focus();
     },
-    getVercode() {
-      setInterval(() => {
-        this.vercodeText = "60" + "秒";
+    countdown() {
+      let time = 60;
+      const cache = this.vercodeText;
+      this.vercodeText = time + "秒";
+      return new Promise(resolve => {
+        const intervalId = setInterval(() => {
+          time--;
+          this.vercodeText = time + "秒";
+          if (time < 0) {
+            clearInterval(intervalId);
+            this.vercodeText = cache;
+            resolve();
+          }
+        }, 1000);
       });
+    },
+    getVercode() {
+      if (this.disableVercode) return;
+      this.disableVercode = true;
+      api
+        .getVercode()
+        .then(() => {
+          this.countdown().then(() => {
+            console.log(`倒计时完毕`);
+            this.disableVercode = false;
+          });
+        })
+        .catch(() => {
+          this.disableVercode = false;
+        });
     },
     validateAllInput() {
       const validateMap = {
@@ -116,6 +137,7 @@ export default {
 }
 .login {
   position: relative;
+  text-align: center;
   .van-hairline--top-bottom::after {
     border-width: 0 0 2px;
   }
