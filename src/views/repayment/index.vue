@@ -29,14 +29,38 @@
         title="还款金额"
         value="3180.00"/>
     </van-cell-group>
+    <van-panel title="还款方式">
+      <div class="repayment__ways">
+        <div :class="`bank-logo ui-banklogo-s-${bank}`"/>
+        {{ bankname }} {{ cardType }} ({{ cardNo.slice(-4) }})
+      </div>
+    </van-panel>
   </div>
 </template>
 
 <script>
+import banknameList from "@/services/bankname";
+import cardTypeList from "@/services/cardType";
 export default {
   name: "Repayment",
   data() {
-    return {};
+    return {
+      cardNo: "6228430120000000000",
+      bankname: "",
+      bank: "",
+      cardType: ""
+    };
+  },
+  created() {
+    this.$apiService.getBank(this.cardNo).then(res => {
+      if (res.stat === "ok") {
+        this.bankname = banknameList[res.bank];
+        this.cardType = cardTypeList[res.cardType];
+        this.bank = res.bank;
+      } else {
+        this.$toast(`获取银行卡信息失败`);
+      }
+    });
   }
 };
 </script>
@@ -59,6 +83,10 @@ export default {
   }
   &__outdate {
     color: red;
+  }
+  &__ways {
+    padding: 10px 15px;
+    font-size: 14px;
   }
 }
 </style>

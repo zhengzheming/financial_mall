@@ -9,7 +9,7 @@ module.exports = {
       unitPrecision: 5,
       viewportUnit: "vw",
       fontViewportUnit: "vw", // vmin is more suitable.
-      selectorBlackList: [".ignore"],
+      selectorBlackList: ["ui-banklogo-s"],
       minPixelValue: 1,
       mediaQuery: false
     }

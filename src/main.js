@@ -3,15 +3,18 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import Vant from "vant";
+import "@/assets/scss/common.scss";
+import "@/assets/css/bank_small_logo.css";
 import "vant/lib/vant-css/index.css";
 import "@/assets/scss/overide.scss";
-import "@/assets/scss/common.scss";
 import "@/services/interceptors";
+import api from "@/api";
 
 Vue.use(Vant);
 
 Vue.config.productionTip = false;
 Object.defineProperty(Vue.prototype, "$log", { value: window.console.log });
+Object.defineProperty(Vue.prototype, "$apiService", { value: api });
 
 new Vue({
   router,

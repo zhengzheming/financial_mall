@@ -1,3 +1,9 @@
 .van-cell-group + .van-cell-group {
   margin-top: 10px;
 }
+.bank-logo {
+  display: inline-block;
+  background: url('~@/assets/imgs/bank_small_logo.png');
+  vertical-align: middle;
+  margin-top: -3px;
+}
