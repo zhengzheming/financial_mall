@@ -138,6 +138,8 @@ export default {
 .login {
   position: relative;
   text-align: center;
+  min-height: 100vh;
+  background: white;
   .van-hairline--top-bottom::after {
     border-width: 0 0 2px;
   }
