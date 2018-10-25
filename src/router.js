@@ -4,6 +4,7 @@ import Login from "./views/login";
 import Main from "@/views/main";
 import Goods from "@/views/main/goods";
 import My from "@/views/main/my";
+import Repayment from "@/views/repayment";
 
 Vue.use(Router);
 
@@ -31,6 +32,11 @@ export default new Router({
           component: My
         }
       ]
+    },
+    {
+      path: "/repayment",
+      name: "repayment",
+      component: Repayment
     }
   ]
 });

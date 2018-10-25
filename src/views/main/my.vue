@@ -7,6 +7,7 @@
         :title="tab.title"
         :value="tab.value"
         :key="index"
+        :to="tab.route"
         is-link/>
     </van-cell-group>
   </div>
@@ -25,22 +26,22 @@ export default {
         {
           title: "还款计划",
           value: "",
-          url: ""
+          route: { name: "repayment" }
         },
         {
           title: "订单列表",
           value: "",
-          url: ""
+          route: ""
         },
         {
           title: "基本信息认证",
           value: "",
-          url: ""
+          route: ""
         },
         {
           title: "银行卡管理",
           value: "",
-          url: ""
+          route: ""
         }
       ]
     };

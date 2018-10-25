@@ -35,6 +35,7 @@ export default {
 .my-header {
   padding: 10px 0;
   text-align: center;
+  background-color: white;
   .avatar img {
     width: 60px;
     height: 60px;

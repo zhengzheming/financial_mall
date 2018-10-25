@@ -4,6 +4,8 @@ import router from "./router";
 import store from "./store";
 import Vant from "vant";
 import "vant/lib/vant-css/index.css";
+import "@/assets/scss/overide.scss";
+import "@/assets/scss/common.scss";
 import "@/services/interceptors";
 
 Vue.use(Vant);
