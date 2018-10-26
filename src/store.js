@@ -14,6 +14,9 @@ export default new Vuex.Store({
     },
     repay() {
       console.log(`付款`);
+    },
+    "bankcard:free": function() {
+      console.log(`解绑银行卡...`);
     }
   }
 });

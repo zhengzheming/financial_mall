@@ -10,6 +10,7 @@ import OrderList from "@/views/orderList";
 import goodsDetail from "@/views/goodsDetail";
 import goodsPay from "@/views/goodsDetail/pay";
 import goodsAudit from "@/views/goodsDetail/audit";
+import bankCards from "@/views/bankCards";
 
 Vue.use(Router);
 
@@ -67,6 +68,11 @@ export default new Router({
       path: "/goodsaudit",
       name: "goodsaudit",
       component: goodsAudit
+    },
+    {
+      path: "/bankcards",
+      name: "bankcards",
+      component: bankCards
     }
   ]
 });

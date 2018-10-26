@@ -32,8 +32,7 @@
     </van-cell-group>
     <van-panel title="还款方式">
       <div class="repayment__ways">
-        <div :class="`bank-logo ui-banklogo-s-${bank}`"/>
-        {{ bankname }} {{ cardType }} ({{ cardNo.slice(-4) }})
+        <bank-cell :bank-code="cardNo"/>
       </div>
     </van-panel>
     <div class="btn-repay">
@@ -64,16 +63,11 @@
 </template>
 
 <script>
-import banknameList from "@/services/bankname";
-import cardTypeList from "@/services/cardType";
 export default {
   name: "Repayment",
   data() {
     return {
       cardNo: "6228430120000000000",
-      bankname: "",
-      bank: "",
-      cardType: "",
       detailDialogShown: false,
       dialogContent: [
         {
@@ -93,17 +87,6 @@ export default {
         }
       ]
     };
-  },
-  created() {
-    this.$apiService.getBank(this.cardNo).then(res => {
-      if (res.stat === "ok") {
-        this.bankname = banknameList[res.bank];
-        this.cardType = cardTypeList[res.cardType];
-        this.bank = res.bank;
-      } else {
-        this.$toast(`获取银行卡信息失败`);
-      }
-    });
   },
   methods: {
     getVercode() {
