@@ -11,6 +11,7 @@ import goodsDetail from "@/views/goodsDetail";
 import goodsPay from "@/views/goodsDetail/pay";
 import goodsAudit from "@/views/goodsDetail/audit";
 import bankCards from "@/views/bankCards";
+import bankcardAdd from "@/views/bankCards/add";
 
 Vue.use(Router);
 
@@ -73,6 +74,11 @@ export default new Router({
       path: "/bankcards",
       name: "bankcards",
       component: bankCards
+    },
+    {
+      path: "/bankcards/add",
+      name: "bankcardadd",
+      component: bankcardAdd
     }
   ]
 });

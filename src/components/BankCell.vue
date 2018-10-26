@@ -1,5 +1,7 @@
 <template>
-  <div class="bank-cell">
+  <div 
+    v-if="bankCode" 
+    class="bank-cell">
     <div :class="`bank-logo ui-banklogo-s-${bank}`"/>
     {{ bankname }} {{ cardType }} <span v-if="tailNo">({{ bankCode.slice(-4) }})</span>
   </div>
@@ -27,16 +29,28 @@ export default {
       cardType: ""
     };
   },
-  created() {
-    this.$apiService.getBank(this.bankCode).then(res => {
-      if (res.stat === "ok") {
-        this.bankname = banknameList[res.bank];
-        this.cardType = cardTypeList[res.cardType];
-        this.bank = res.bank;
-      } else {
-        this.$toast(`获取银行卡信息失败`);
-      }
-    });
+  watch: {
+    bankCode: {
+      handler: function() {
+        if (!this.bankCode) return;
+        this.$apiService.getBank(this.bankCode).then(res => {
+          if (res.stat === "ok") {
+            this.bankname = banknameList[res.bank];
+            this.cardType = cardTypeList[res.cardType];
+            this.bank = res.bank;
+          } else {
+            this.$toast(`获取银行卡信息失败`);
+          }
+        });
+      },
+      immediate: true
+    }
   }
 };
 </script>
+
+<style scoped lang="scss">
+.bank-cell {
+  font-size: 14px;
+}
+</style>

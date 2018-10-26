@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    phone: ""
+    phone: "17621153999"
   },
   mutations: {},
   actions: {
