@@ -7,6 +7,9 @@ import My from "@/views/main/my";
 import Repayment from "@/views/repayment";
 import CaptchaView from "@/views/captcha";
 import OrderList from "@/views/orderList";
+import goodsDetail from "@/views/goodsDetail";
+import goodsPay from "@/views/goodsDetail/pay";
+import goodsAudit from "@/views/goodsDetail/audit";
 
 Vue.use(Router);
 
@@ -49,6 +52,21 @@ export default new Router({
       path: "/orderlist",
       name: "orderlist",
       component: OrderList
+    },
+    {
+      path: "/goodsdetail",
+      name: "goodsdetail",
+      component: goodsDetail
+    },
+    {
+      path: "/goodspay",
+      name: "goodspay",
+      component: goodsPay
+    },
+    {
+      path: "/goodsaudit",
+      name: "goodsaudit",
+      component: goodsAudit
     }
   ]
 });

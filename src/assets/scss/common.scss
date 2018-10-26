@@ -1,3 +1,9 @@
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .van-cell-group + .van-cell-group {
   margin-top: 10px;
 }
@@ -19,4 +25,18 @@
     right: 0;
     transform: scale(1.5);
   }
+}
+
+.emp {
+  color: red;
+}
+
+.bg-white {
+  background-color: white;
+  padding: 10px;
+}
+
+.justify-between {
+  display: flex;
+  justify-content: space-between;
 }

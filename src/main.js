@@ -8,6 +8,7 @@ import "@/assets/css/bank_small_logo.css";
 import "vant/lib/vant-css/index.css";
 import "@/assets/scss/overide.scss";
 import "@/services/interceptors";
+import "@/components";
 import api from "@/api";
 
 Vue.use(Vant);

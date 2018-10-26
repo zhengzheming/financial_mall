@@ -37,10 +37,7 @@
       </div>
     </van-panel>
     <div class="btn-repay">
-      <van-button
-        type="primary"
-        size="large"
-        @click="repay">立即还款</van-button>
+      <large-button @click.native="repay">立即还款</large-button>
     </div>
     <div class="tips">
       保持良好的还款记录有助于提升您的信用额度
@@ -48,9 +45,9 @@
     <van-dialog
       v-model="detailDialogShown"
     >
-      <div 
-        v-for="(cell, index) in dialogContent" 
-        :key="index" 
+      <div
+        v-for="(cell, index) in dialogContent"
+        :key="index"
         class="m-cell">
         <div class="first">
           {{ cell.first }}
