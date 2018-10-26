@@ -13,8 +13,8 @@
     <div class="goods-detail__desc bg-white">
       <div style="font-size: 14px; margin-bottom: 10px;">商品详情</div>
       <div style="padding: 0 10px;">
-        <span 
-          v-for="(text, index) in item.detail" 
+        <span
+          v-for="(text, index) in item.detail"
           :key="index">{{ text }} <br></span>
       </div>
     </div>
@@ -38,9 +38,35 @@ export default {
   },
   methods: {
     buy(item) {
+      if (!this.validate()) return;
       this.$router.push({
         name: "goodspay",
         query: item
+      });
+    },
+    validate() {
+      this.showErr("auth");
+      return false;
+    },
+    showErr(type) {
+      const messageMap = {
+        auth: {
+          content: "暂未完成认证，请先进行认证",
+          confirmText: "立即认证"
+        },
+        auditing: {
+          content: "你有审核中的订单，暂时无法发起新的订单，请等待审核结果"
+        },
+        refund: {
+          content: "你有一笔未还款的订单，请先还款后再进行购买操作",
+          confirmText: "立即还款"
+        }
+      };
+      const whichError = type;
+      this.$dialog.confirm({
+        message: messageMap[whichError].content,
+        showConfirmButton: !!messageMap[whichError].confirmText,
+        confirmButtonText: messageMap[whichError].confirmText
       });
     }
   }
