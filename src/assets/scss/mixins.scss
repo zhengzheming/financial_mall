@@ -1,0 +1,14 @@
+@mixin border1px($direction: bottom) {
+  position: relative;
+  &::after {
+    content: ' ';
+    position: absolute;
+    pointer-events: none;
+    box-sizing: border-box;
+    left: 4vw;
+    right: 0;
+    #{$direction}: 0;
+    transform: scaleY(.5);
+    border-bottom: 1px solid #eee;
+  }
+}

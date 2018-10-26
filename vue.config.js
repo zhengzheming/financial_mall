@@ -6,7 +6,7 @@ module.exports = {
       sass: {
         // @/ 是 src/ 的别名
         // 所以这里假设你有 `src/variables.scss` 这个文件
-        data: `@import "@/assets/scss/vars.scss";`
+        data: `@import "@/assets/scss/vars.scss"; @import "@/assets/scss/mixins.scss";`
       }
     }
   }

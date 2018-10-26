@@ -4,7 +4,16 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    phone: ""
+  },
   mutations: {},
-  actions: {}
+  actions: {
+    updatePhone({ state }, phone) {
+      state.phone = phone;
+    },
+    repay() {
+      console.log(`付款`);
+    }
+  }
 });

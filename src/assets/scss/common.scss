@@ -7,3 +7,16 @@
   vertical-align: middle;
   margin-top: -3px;
 }
+.hot-area {
+  position: relative;
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: scale(1.5);
+  }
+}

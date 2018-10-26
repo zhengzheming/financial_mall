@@ -8,7 +8,8 @@
           <span class="title-fixed">待还金额</span>
           <van-button
             size="mini"
-            class="repayment__detail">详情</van-button>
+            class="repayment__detail"
+            @click="showDetailDialog">详情</van-button>
         </template>
       </van-cell>
       <van-cell
@@ -35,6 +36,33 @@
         {{ bankname }} {{ cardType }} ({{ cardNo.slice(-4) }})
       </div>
     </van-panel>
+    <div class="btn-repay">
+      <van-button
+        type="primary"
+        size="large"
+        @click="repay">立即还款</van-button>
+    </div>
+    <div class="tips">
+      保持良好的还款记录有助于提升您的信用额度
+    </div>
+    <van-dialog
+      v-model="detailDialogShown"
+    >
+      <div 
+        v-for="(cell, index) in dialogContent" 
+        :key="index" 
+        class="m-cell">
+        <div class="first">
+          {{ cell.first }}
+        </div>
+        <div class="second">
+          {{ cell.second }}
+        </div>
+        <div class="third">
+          {{ cell.third }}
+        </div>
+      </div>
+    </van-dialog>
   </div>
 </template>
 
@@ -48,7 +76,25 @@ export default {
       cardNo: "6228430120000000000",
       bankname: "",
       bank: "",
-      cardType: ""
+      cardType: "",
+      detailDialogShown: false,
+      dialogContent: [
+        {
+          first: "2018-10-14",
+          second: "本金",
+          third: "3000.00"
+        },
+        {
+          first: "2018-10-14",
+          second: "本金",
+          third: "3000.00"
+        },
+        {
+          first: "2018-10-14",
+          second: "预期利息",
+          third: "3000.00"
+        }
+      ]
     };
   },
   created() {
@@ -61,6 +107,19 @@ export default {
         this.$toast(`获取银行卡信息失败`);
       }
     });
+  },
+  methods: {
+    getVercode() {
+      return this.$apiService.getRepaymentVercode();
+    },
+    repay() {
+      this.getVercode(this.$store.state.phone).then(() => {
+        this.$router.push({ name: "captcha" });
+      });
+    },
+    showDetailDialog() {
+      this.detailDialogShown = true;
+    }
   }
 };
 </script>
@@ -87,6 +146,40 @@ export default {
   &__ways {
     padding: 10px 15px;
     font-size: 14px;
+  }
+  .btn-repay {
+    padding: 0 20px;
+    margin-top: 30px;
+  }
+  .tips {
+    color: #999;
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .m-cell {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    line-height: 24px;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    overflow: hidden;
+    position: relative;
+    &:not(:last-child)::after {
+      content: " ";
+      position: absolute;
+      pointer-events: none;
+      box-sizing: border-box;
+      left: 4vw;
+      right: 0;
+      bottom: 0;
+      transform: scaleY(0.5);
+      border-bottom: 1px solid #eee;
+    }
   }
 }
 </style>

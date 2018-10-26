@@ -5,6 +5,8 @@ import Main from "@/views/main";
 import Goods from "@/views/main/goods";
 import My from "@/views/main/my";
 import Repayment from "@/views/repayment";
+import CaptchaView from "@/views/captcha";
+import OrderList from "@/views/orderList";
 
 Vue.use(Router);
 
@@ -37,6 +39,16 @@ export default new Router({
       path: "/repayment",
       name: "repayment",
       component: Repayment
+    },
+    {
+      path: "/captcha",
+      name: "captcha",
+      component: CaptchaView
+    },
+    {
+      path: "/orderlist",
+      name: "orderlist",
+      component: OrderList
     }
   ]
 });

@@ -31,7 +31,7 @@ export default {
         {
           title: "订单列表",
           value: "",
-          route: ""
+          route: { name: "orderlist" }
         },
         {
           title: "基本信息认证",
