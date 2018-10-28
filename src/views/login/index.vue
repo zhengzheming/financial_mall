@@ -23,11 +23,7 @@
           maxlength="6"
           clearable
           placeholder="请输入短信验证码" >
-          <span
-            slot="button"
-            :class="{disabled: disableVercode}"
-            class="btn-vercode"
-            @click="getVercode">{{ vercodeText }}</span>
+          <captcha-btn slot="button"/>
         </van-field>
       </van-cell-group>
       <div class="error-message">{{ errMessage }}</div>
@@ -41,7 +37,6 @@
 </template>
 
 <script>
-import api from "@/api";
 export default {
   name: "Login",
   data() {
@@ -49,10 +44,8 @@ export default {
       phone: "",
       vercode: "",
       showKeyboard: true,
-      vercodeText: "获取验证码",
       disableLogin: true,
-      errMessage: "",
-      disableVercode: false
+      errMessage: ""
     };
   },
   methods: {
@@ -66,37 +59,6 @@ export default {
     onClose() {
       this.showKeyboard = false;
       this.$refs.vercode.$el.querySelector("input").focus();
-    },
-    countdown() {
-      let time = 60;
-      const cache = this.vercodeText;
-      this.vercodeText = time + "秒";
-      return new Promise(resolve => {
-        const intervalId = setInterval(() => {
-          time--;
-          this.vercodeText = time + "秒";
-          if (time < 0) {
-            clearInterval(intervalId);
-            this.vercodeText = cache;
-            resolve();
-          }
-        }, 1000);
-      });
-    },
-    getVercode() {
-      if (this.disableVercode) return;
-      this.disableVercode = true;
-      api
-        .getVercode()
-        .then(() => {
-          this.countdown().then(() => {
-            console.log(`倒计时完毕`);
-            this.disableVercode = false;
-          });
-        })
-        .catch(() => {
-          this.disableVercode = false;
-        });
     },
     validateAllInput() {
       const validateMap = {
@@ -150,9 +112,6 @@ export default {
   }
   .btn-login {
     margin-top: 50px;
-  }
-  .btn-vercode {
-    color: $color-theme;
   }
   .custom-cursor input::after {
     content: "|";

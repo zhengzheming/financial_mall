@@ -35,10 +35,7 @@
         readonly
         label="手机号"
         class="align-center">
-        <van-button
-          slot="button"
-          size="small"
-          type="primary">发送验证码</van-button>
+        <captcha-btn slot="button"/>
       </van-field>
     </van-cell-group>
     <van-cell-group>
