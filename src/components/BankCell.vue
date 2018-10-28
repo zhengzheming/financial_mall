@@ -1,6 +1,6 @@
 <template>
   <div 
-    v-if="bankCode" 
+    v-if="bankCode && validated"
     class="bank-cell">
     <div :class="`bank-logo ui-banklogo-s-${bank}`"/>
     {{ bankname }} {{ cardType }} <span v-if="tailNo">({{ bankCode.slice(-4) }})</span>
@@ -26,7 +26,8 @@ export default {
     return {
       bankname: "",
       bank: "",
-      cardType: ""
+      cardType: "",
+      validated: false
     };
   },
   watch: {
@@ -38,6 +39,7 @@ export default {
             this.bankname = banknameList[res.bank];
             this.cardType = cardTypeList[res.cardType];
             this.bank = res.bank;
+            this.validated = res.validated;
           } else {
             this.$toast(`获取银行卡信息失败`);
           }

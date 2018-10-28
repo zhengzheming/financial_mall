@@ -3,6 +3,7 @@
     :style="`margin-top: ${marginTop}`"
     class="large-button">
     <van-button
+      :disabled="disabled"
       size="large"
       type="primary"><slot>大号按钮</slot></van-button>
   </div>
@@ -15,6 +16,10 @@ export default {
     marginTop: {
       type: String,
       default: "30px"
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   }
 };
@@ -24,5 +29,12 @@ export default {
 .large-button {
   padding: 0 20px;
   margin-bottom: 30px;
+  pointer-events: none;
+  /deep/ > * {
+    pointer-events: auto;
+    & > * {
+      pointer-events: none;
+    }
+  }
 }
 </style>
