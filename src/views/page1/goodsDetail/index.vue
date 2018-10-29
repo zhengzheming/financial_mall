@@ -34,40 +34,75 @@ export default {
   computed: {
     item() {
       return this.$route.query;
+    },
+    userinfo() {
+      return this.$store.state.userinfo;
     }
   },
   methods: {
     buy(item) {
       if (!this.validate()) return;
-      this.$router.push({
-        name: "goodspay",
-        query: item
+      this.$apiService.addOrder(item.goodsId).then(() => {
+        this.$router.push({
+          name: "goodspay",
+          query: item
+        });
       });
     },
     validate() {
-      this.showErr("auth");
-      return false;
+      const type = {
+        auth_flag: "auth",
+        has_wait_check_order: "auditing",
+        has_wait_repay_order: "refund"
+      };
+      if (!this.userinfo.auth_flag) {
+        this.showErr(type["auth_flag"]);
+        return false;
+      }
+      if (this.userinfo.has_wait_check_order) {
+        this.showErr(type["has_wait_check_order"]);
+        return false;
+      }
+      if (this.userinfo.has_wait_repay_order) {
+        this.showErr(type["has_wait_repay_order"]);
+        return false;
+      }
+      return true;
     },
     showErr(type) {
       const messageMap = {
         auth: {
           content: "暂未完成认证，请先进行认证",
-          confirmText: "立即认证"
+          confirmText: "立即认证",
+          callback() {
+            console.log(`暂未完成认证`);
+          }
         },
         auditing: {
-          content: "你有审核中的订单，暂时无法发起新的订单，请等待审核结果"
+          content: "你有审核中的订单，暂时无法发起新的订单，请等待审核结果",
+          callback() {
+            console.log(`你有审核中的订单`);
+          }
         },
         refund: {
           content: "你有一笔未还款的订单，请先还款后再进行购买操作",
-          confirmText: "立即还款"
+          confirmText: "立即还款",
+          callback() {
+            console.log(`你有一笔未还款的订单`);
+          }
         }
       };
       const whichError = type;
-      this.$dialog.confirm({
-        message: messageMap[whichError].content,
-        showConfirmButton: !!messageMap[whichError].confirmText,
-        confirmButtonText: messageMap[whichError].confirmText
-      });
+      this.$dialog
+        .confirm({
+          message: messageMap[whichError].content,
+          showConfirmButton: !!messageMap[whichError].confirmText,
+          confirmButtonText: messageMap[whichError].confirmText
+        })
+        .then(() => {
+          const fn = messageMap[whichError].callback || function() {};
+          fn();
+        });
     }
   }
 };

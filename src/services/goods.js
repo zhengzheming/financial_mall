@@ -15,7 +15,8 @@ export default [
     ],
     imageUrl:
       "https://img13.360buyimg.com/n7/jfs/t6922/6/1446378781/124618/a4558d00/598194eeN0485ec53.jpg",
-    price: "1000"
+    price: "1000",
+    goodsId: 1
   },
   {
     title: "京东E卡",
@@ -23,6 +24,7 @@ export default [
     desc: "1000加油卡中，包括200元开卡费，实际可充值金额为800元",
     imageUrl:
       "https://img12.360buyimg.com/n7/jfs/t6235/288/1351884859/60243/1417396b/5950b77eNb0eba280.jpg",
-    price: "1000"
+    price: "1000",
+    goodsId: 2
   }
 ];
