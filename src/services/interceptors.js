@@ -7,8 +7,9 @@ request.interceptors.response.use(response => {
   const inWhitelist = ["alipay"].some(key => {
     return new RegExp(key).test(config.url);
   });
-  if (res.status != 0 && !inWhitelist) {
-    Toast(res.data);
+  if (!inWhitelist && res.code != 0) {
+    Toast(res.msg);
+    return Promise.reject("status:error");
   }
   return res;
 });

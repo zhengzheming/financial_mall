@@ -3,12 +3,14 @@
     <p class="title">注册/登录</p>
     <form
       ref="form"
-      class="form-login"
-      @input="validateAllInput">
+      class="form-login">
       <van-cell-group>
         <van-field
+          v-validate="'required|isPhoneTruthy'"
           v-model="phone"
+          :error-message="errors.first('phone')"
           class="custom-cursor"
+          name="phone"
           maxlength="11"
           type="number"
           pattern="[0-9]*"
@@ -18,20 +20,25 @@
       </van-cell-group>
       <van-cell-group>
         <van-field
+          v-validate="'required'"
           ref="vercode"
           v-model="vercode"
+          :error-message="errors.first('vercode')"
+          name="vercode"
           maxlength="6"
           clearable
           placeholder="请输入短信验证码" >
-          <captcha-btn slot="button"/>
+          <captcha-btn 
+            slot="button" 
+            :phone="phone"/>
         </van-field>
       </van-cell-group>
-      <div class="error-message">{{ errMessage }}</div>
       <van-button
-        :disabled="disableLogin"
+        :disabled="!isFormTrue"
         type="primary"
         size="large"
-        class="btn-login">登录</van-button>
+        class="btn-login"
+        @click.prevent="login">登录</van-button>
     </form>
   </div>
 </template>
@@ -43,42 +50,19 @@ export default {
     return {
       phone: "",
       vercode: "",
-      showKeyboard: true,
-      disableLogin: true,
       errMessage: ""
     };
   },
+  computed: {
+    isFormTrue() {
+      return Object.keys(this.fields).every(key => this.fields[key].valid);
+    }
+  },
   methods: {
-    onInput(key) {
-      if (this.phone.length >= 11) return;
-      this.phone = this.phone + key;
-    },
-    onDelete() {
-      this.phone = this.phone.slice(0, -1);
-    },
-    onClose() {
-      this.showKeyboard = false;
-      this.$refs.vercode.$el.querySelector("input").focus();
-    },
-    validateAllInput() {
-      const validateMap = {
-        phone: () =>
-          /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/.test(
-            this.phone
-          ),
-        vercode: () => !!this.vercode
-      };
-      const errMessage = {
-        phone: "请输入正确的手机号码",
-        vercode: "请输入验证码"
-      };
-      const passValidatation = ["phone", "vercode"].every(key => {
-        const fieldPassValidation = validateMap[key]();
-        if (!fieldPassValidation) this.errMessage = errMessage[key];
-        return fieldPassValidation;
+    login() {
+      this.$apiService.login(this.phone, this.vercode).then(() => {
+        this.$router.push({ name: "goods" });
       });
-      if (passValidatation) this.errMessage = "";
-      this.disableLogin = !passValidatation;
     }
   }
 };

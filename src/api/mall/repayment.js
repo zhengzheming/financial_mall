@@ -1,4 +1,4 @@
-import request from "axios";
+import request from "./request";
 export function getRepaymentVercode(phone) {
   return request({
     method: "get",

@@ -7,7 +7,8 @@ const attributes = {
   cardId: "身份证号",
   cardNo: "储蓄卡号",
   phone: "手机号",
-  captcha: "验证码"
+  captcha: "验证码",
+  vercode: "验证码"
 };
 
 const locale = {

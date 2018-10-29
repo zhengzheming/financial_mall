@@ -1,9 +1,7 @@
-import * as login from "./login";
 import * as common from "./common";
-import * as repayment from "./repayment";
+import mall from "./mall/index";
 
 export default {
-  ...login,
-  ...common,
-  ...repayment
+  ...mall,
+  ...common
 };

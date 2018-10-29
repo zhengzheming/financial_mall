@@ -8,6 +8,12 @@
 <script>
 export default {
   name: "CaptchaBtn",
+  props: {
+    phone: {
+      type: String,
+      default: ""
+    }
+  },
   data() {
     return {
       disableVercode: false,
@@ -35,7 +41,7 @@ export default {
       if (this.disableVercode) return;
       this.disableVercode = true;
       this.$apiService
-        .getVercode()
+        .getVercode(this.phone)
         .then(() => {
           this.countdown().then(() => {
             console.log(`倒计时完毕`);
