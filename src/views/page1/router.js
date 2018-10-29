@@ -1,22 +1,21 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Login from "./views/login";
-import Main from "@/views/main";
-import Goods from "@/views/main/goods";
-import My from "@/views/main/my";
-import Repayment from "@/views/repayment";
-import CaptchaView from "@/views/captcha";
-import OrderList from "@/views/orderList";
-import goodsDetail from "@/views/goodsDetail";
-import goodsPay from "@/views/goodsDetail/pay";
-import goodsAudit from "@/views/goodsDetail/audit";
-import bankCards from "@/views/bankCards";
-import bankcardAdd from "@/views/bankCards/add";
+import Login from "@/views/page1/login";
+import Main from "@/views/page1/main";
+import Goods from "@/views/page1/main/goods";
+import My from "@/views/page1/main/my";
+import Repayment from "@/views/page1/repayment/index";
+import CaptchaView from "@/views/page1/captcha";
+import OrderList from "@/views/page1/orderList";
+import goodsDetail from "@/views/page1/goodsDetail";
+import goodsPay from "@/views/page1/goodsDetail/pay";
+import goodsAudit from "@/views/page1/goodsDetail/audit";
+import bankCards from "@/views/page1/bankCards";
+import bankcardAdd from "@/views/page1/bankCards/add";
 
 Vue.use(Router);
 
 export default new Router({
-  mode: "history",
   routes: [
     {
       path: "/login",
