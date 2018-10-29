@@ -44,3 +44,11 @@
 .m-cell {
   padding: 10px 15px;
 }
+
+.layout-grow {
+  min-height: 100vh;
+}
+
+.mt-gap + .mt-gap {
+  margin-top: 10px;
+}

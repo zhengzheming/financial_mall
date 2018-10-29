@@ -15,8 +15,7 @@
           type="number"
           pattern="[0-9]*"
           clearable
-          placeholder="请输入手机号"
-          @click="showKeyboard = true" />
+          placeholder="请输入手机号" />
       </van-cell-group>
       <van-cell-group>
         <van-field
@@ -28,8 +27,8 @@
           maxlength="6"
           clearable
           placeholder="请输入短信验证码" >
-          <captcha-btn 
-            slot="button" 
+          <captcha-btn
+            slot="button"
             :phone="phone"/>
         </van-field>
       </van-cell-group>
