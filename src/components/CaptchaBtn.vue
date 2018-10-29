@@ -44,7 +44,6 @@ export default {
         .getVercode(this.phone)
         .then(() => {
           this.countdown().then(() => {
-            console.log(`倒计时完毕`);
             this.disableVercode = false;
           });
         })

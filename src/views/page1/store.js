@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    phone: "17621153999"
+    phone: "17621153999",
+    userinfo: {}
   },
   mutations: {},
   actions: {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
     "bankcard:free": function() {
       console.log(`解绑银行卡...`);
+    },
+    "userinfo:get": function({ state }, userinfo) {
+      state.userinfo = userinfo;
     }
   }
 });

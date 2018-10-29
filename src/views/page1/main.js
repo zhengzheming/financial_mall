@@ -23,7 +23,9 @@ extendValidator(VeeValidate.Validator);
 Vue.config.productionTip = false;
 Object.defineProperty(Vue.prototype, "$log", { value: window.console.log });
 Object.defineProperty(Vue.prototype, "$apiService", { value: api });
-
+api.getUserInfo(res => {
+  store.dispatch("userinfo:get", res.data);
+});
 new Vue({
   router,
   store,
