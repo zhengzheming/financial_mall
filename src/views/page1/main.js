@@ -26,6 +26,14 @@ Object.defineProperty(Vue.prototype, "$apiService", { value: api.mall });
 api.mall.getUserInfo(res => {
   store.dispatch("userinfo:get", res.data);
 });
+
+router.beforeEach((to, from, next) => {
+  if (store.state.phone) {
+    next();
+  } else {
+    next({ name: "login" });
+  }
+});
 new Vue({
   router,
   store,
