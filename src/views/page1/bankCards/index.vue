@@ -1,13 +1,16 @@
 <template>
   <div class="bank-cards">
     <div class="banl-cards__list">
-      <van-cell-group>
-        <bank-card/>
+      <van-cell-group 
+        v-for="(card, index) in bankcards" 
+        :key="index">
+        <bank-card :bank-code="card.pay_acc"/>
       </van-cell-group>
     </div>
-    <large-button 
-      class="bank-cards__add" 
-      @click.native="$router.push({ name: 'cardadd'})">+ 添加银行卡</large-button>
+    <large-button
+      v-if="bankcards.length == 0"
+      class="bank-cards__add"
+      @click.native="$router.push({ name: 'bankcardadd'})">+ 添加银行卡</large-button>
   </div>
 </template>
 
@@ -17,6 +20,16 @@ export default {
   name: "BankCards",
   components: {
     BankCard
+  },
+  data() {
+    return {
+      bankcards: []
+    };
+  },
+  created() {
+    this.$apiService.getOwnBankCards(1).then(res => {
+      this.bankcards = res.data || [];
+    });
   }
 };
 </script>

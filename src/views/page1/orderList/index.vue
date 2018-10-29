@@ -23,6 +23,11 @@ export default {
     return {
       orders: goods
     };
+  },
+  created() {
+    this.$apiService.getOrderList().then(res => {
+      console.log(res);
+    });
   }
 };
 </script>

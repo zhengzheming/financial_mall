@@ -8,3 +8,17 @@ export function getRepaymentVercode(phone) {
     }
   });
 }
+
+export function getRepaymentDetail() {
+  return request({
+    method: "post",
+    url: "loan/replayPlanDetail"
+  });
+}
+
+export function getOrderList() {
+  return request({
+    url: "/order/getList",
+    method: "post"
+  });
+}

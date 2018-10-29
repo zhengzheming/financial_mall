@@ -41,10 +41,34 @@ export default {
         {
           title: "银行卡管理",
           value: "",
-          route: ""
+          route: { name: "bankcards" }
         }
       ]
     };
+  },
+  computed: {
+    auth() {
+      //  实名认证
+      return this.userinfo.auth_flag;
+    },
+    userinfo() {
+      return this.$store.state.userinfo;
+    },
+    authTab() {
+      return this.tabList.find(tab => tab.title === "基本信息认证");
+    }
+  },
+  watch: {
+    auth(val) {
+      if (val) {
+        this.authTab.value = "已认证";
+      }
+    }
+  },
+  created() {
+    if (this.auth) {
+      this.authTab.value = "已认证";
+    }
   }
 };
 </script>

@@ -5,8 +5,8 @@
         :src="avatar"
         alt="">
     </div>
-    <div class="name">{{ name }}</div>
-    <div class="phone">{{ phone }}</div>
+    <div class="name">{{ userinfo.real_name }}</div>
+    <div class="phone">{{ userinfo.mobile }}</div>
   </div>
 </template>
 
@@ -26,6 +26,11 @@ export default {
     phone: {
       type: String,
       default: "0716-1888277"
+    }
+  },
+  computed: {
+    userinfo() {
+      return this.$store.state.userinfo;
     }
   }
 };

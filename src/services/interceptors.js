@@ -11,7 +11,6 @@ export default function initInterceptor(request) {
       Toast(res.msg);
       return Promise.reject("status:error");
     }
-    console.log(res);
     return res;
   });
 }

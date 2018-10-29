@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     v-if="bankCode && validated"
     class="bank-cell">
     <div :class="`bank-logo ui-banklogo-s-${bank}`"/>
