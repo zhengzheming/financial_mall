@@ -4,12 +4,15 @@
       <van-cell-group
         v-for="(card, index) in bankcards"
         :key="index">
-        <bank-card :bank-code="card.pay_acc"/>
+        <bank-card 
+          :bank-code="card.pay_acc" 
+          :acc_id="card.acc_id"/>
       </van-cell-group>
     </div>
     <large-button
       v-if="bankcards.length == 0"
       class="bank-cards__add"
+      @free="getBankcards"
       @click.native="$router.push({ name: 'bankcardadd'})">+ 添加银行卡</large-button>
   </div>
 </template>

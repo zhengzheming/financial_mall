@@ -119,14 +119,18 @@ export default {
       });
     },
     addCard(route) {
-      this.$apiService.bindCard(this.bindCardInfo).then(() => {
-        this.$dialog
-          .alert({
-            message: "你已添加银行卡"
-          })
-          .then(() => {
-            this.$router.push(route);
-          });
+      this.$apiService.bindCard(this.bindCardInfo).then(res => {
+        if (res.code == 0) {
+          this.$dialog
+            .alert({
+              message: "你已添加银行卡"
+            })
+            .then(() => {
+              this.$router.push(route);
+            });
+        } else {
+          this.$toast(res.msg);
+        }
       });
     },
     addCardFromOrigin() {

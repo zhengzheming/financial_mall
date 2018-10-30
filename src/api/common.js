@@ -27,6 +27,13 @@ export default function getFn(request) {
         data
       });
     },
+    unbindCard(data) {
+      return request({
+        url: "/bankCard/unbindBankCard",
+        method: "post",
+        data
+      });
+    },
     getBankcardInfo(card_number) {
       return request({
         url: "/bankCard/getBankCardInfo",

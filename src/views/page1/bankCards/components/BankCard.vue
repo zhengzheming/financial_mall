@@ -28,6 +28,22 @@ export default {
     bankCode: {
       type: [String, Number],
       default: "6228430120000000000"
+    },
+    acc_id: {
+      type: String,
+      default: ""
+    }
+  },
+  computed: {
+    userid() {
+      return this.$store.state.userinfo.userid;
+    },
+    unbindParams() {
+      return {
+        userid: this.userid,
+        card_no: this.bankCode,
+        acc_id: this.acc_id //账户ID
+      };
     }
   },
   methods: {
@@ -37,7 +53,9 @@ export default {
           message: "解除绑定后将无法进行还款操作，确定解绑该银行卡吗？"
         })
         .then(() => {
-          this.$store.dispatch("bankcard:free");
+          this.$apiService.unbindCard(this.unbindParams).then(() => {
+            this.$emit("free");
+          });
         });
     }
   }

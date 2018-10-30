@@ -9,6 +9,7 @@ export default {
   },
   methods: {
     addCardFromOrigin() {
+      console.log(`hello cardbag...`);
       this.addCard({ name: "cardbag" });
     }
   }

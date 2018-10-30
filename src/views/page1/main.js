@@ -20,7 +20,7 @@ Vue.use(Vant);
 Vue.use(VeeValidate);
 VeeValidate.Validator.localize("zh", zh);
 extendValidator(VeeValidate.Validator);
-initInterceptor(request);
+initInterceptor(request, router);
 Vue.config.productionTip = false;
 Object.defineProperty(Vue.prototype, "$log", { value: window.console.log });
 Object.defineProperty(Vue.prototype, "$apiService", { value: api.mall });
