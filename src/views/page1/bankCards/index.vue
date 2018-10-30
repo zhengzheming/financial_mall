@@ -1,8 +1,8 @@
 <template>
   <div class="bank-cards">
     <div class="banl-cards__list">
-      <van-cell-group 
-        v-for="(card, index) in bankcards" 
+      <van-cell-group
+        v-for="(card, index) in bankcards"
         :key="index">
         <bank-card :bank-code="card.pay_acc"/>
       </van-cell-group>
@@ -26,10 +26,15 @@ export default {
       bankcards: []
     };
   },
+  methos: {
+    getBankcards() {
+      this.$apiService.getOwnBankCards(1).then(res => {
+        this.bankcards = res.data || [];
+      });
+    }
+  },
   created() {
-    this.$apiService.getOwnBankCards(1).then(res => {
-      this.bankcards = res.data || [];
-    });
+    this.getBankcards();
   }
 };
 </script>

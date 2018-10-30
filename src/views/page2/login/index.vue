@@ -6,7 +6,15 @@ export default {
   methods: {
     login() {
       this.$apiService.login(this.phone, this.vercode).then(() => {
-        this.$router.push({ name: "goods" });
+        this.$apiService.getUserInfo().then(res => {
+          if (res.code == 0) {
+            console.log(res.data);
+            this.$store.dispatch("userinfo:get", res.data);
+            this.$router.push({ name: "cardbag" });
+          } else {
+            this.$toast(res.msg);
+          }
+        });
       });
     }
   }

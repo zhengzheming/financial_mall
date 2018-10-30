@@ -1,4 +1,5 @@
 import api from "@/api";
+// 不走拦截器
 export function isCardId(card) {
   //身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X
   const reg = /(^\d{15}$)|(^\d{17}(\d|X|x)$)/;
@@ -27,7 +28,8 @@ export default [
     },
     validate(value) {
       return new Promise(resolve => {
-        return api.getBank(value).then(res => {
+        return api.getBank(value).then(response => {
+          const res = response.data;
           return resolve({
             valid: res.validated
           });

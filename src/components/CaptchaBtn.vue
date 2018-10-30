@@ -9,9 +9,9 @@
 export default {
   name: "CaptchaBtn",
   props: {
-    phone: {
-      type: String,
-      default: ""
+    info: {
+      type: Object,
+      default: () => ({})
     }
   },
   data() {
@@ -41,8 +41,9 @@ export default {
       if (this.disableVercode) return;
       this.disableVercode = true;
       this.$apiService
-        .getVercode(this.phone)
-        .then(() => {
+        .sendBankcardSms(this.info)
+        .then(res => {
+          this.$emit("sms-data", res.data);
           this.countdown().then(() => {
             this.disableVercode = false;
           });

@@ -20,3 +20,10 @@ export function getVercode(mobile) {
     }
   });
 }
+
+export function getUserInfo() {
+  return request({
+    method: "post",
+    url: "/user/getInfo"
+  });
+}

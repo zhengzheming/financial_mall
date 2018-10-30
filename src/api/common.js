@@ -19,6 +19,29 @@ export default function getFn(request) {
           type
         }
       });
+    },
+    bindCard(data) {
+      return request({
+        url: "/bankCard/bindCard",
+        method: "post",
+        data
+      });
+    },
+    getBankcardInfo(card_number) {
+      return request({
+        url: "/bankCard/getBankCardInfo",
+        method: "post",
+        data: {
+          card_number
+        }
+      });
+    },
+    sendBankcardSms(data) {
+      return request({
+        url: "/bankCard/sendBindCardSms",
+        method: "post",
+        data
+      });
     }
   };
 }

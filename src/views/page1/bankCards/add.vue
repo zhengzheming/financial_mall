@@ -35,7 +35,10 @@
         readonly
         label="手机号"
         class="align-center">
-        <captcha-btn slot="button"/>
+        <captcha-btn 
+          slot="button" 
+          :info="captchaInfo" 
+          @sms-data="getSmsData"/>
       </van-field>
     </van-cell-group>
     <van-cell-group>
@@ -50,8 +53,8 @@
         pattern="[0-9]*"
         label="验证码" />
     </van-cell-group>
-    <large-button 
-      :disabled="disableNext" 
+    <large-button
+      :disabled="disableNext"
       @click.native="addCard">添加银行卡</large-button>
   </div>
 </template>
@@ -65,12 +68,19 @@ export default {
       cardNo: "",
       name: "",
       cardId: "",
-      captcha: ""
+      captcha: "",
+      bank_code: "", //  银行编码
+      type: "1", // 商城 or 二级市场
+      seq_code: "",
+      chn_id: ""
     };
   },
   computed: {
     phone() {
       return this.$store.state.phone;
+    },
+    userId() {
+      return this.$store.state.userinfo.user_id;
     },
     isFormDirty() {
       return Object.keys(this.fields).some(key => this.fields[key].dirty);
@@ -80,16 +90,44 @@ export default {
     },
     disableNext() {
       return !this.isFormTrue;
+    },
+    captchaInfo() {
+      return {
+        user_id: this.userId,
+        user_name: this.name,
+        identity: this.cardId,
+        card_number: this.cardNo,
+        mobile: this.phone,
+        bank_code: this.bank_code,
+        type: this.type
+      };
+    },
+    bindCardInfo() {
+      return {
+        ...this.captchaInfo,
+        sms_code: this.captcha, //短信验证码
+        seq_code: this.seq_code, //发送短信请求序列码
+        chn_id: this.chn_id //渠道号
+      };
     }
   },
   methods: {
     checkBank() {
       this.bankCode = this.cardNo;
+      this.$apiService.getBankcardInfo(this.cardNo).then(res => {
+        this.bank_code = res.data.bank_code;
+      });
     },
     addCard() {
-      this.$dialog.alert({
-        message: "你已添加银行卡"
+      this.$apiService.bindCard(this.bindCardInfo).then(() => {
+        this.$dialog.alert({
+          message: "你已添加银行卡"
+        });
       });
+    },
+    getSmsData(data) {
+      this.seq_code = data.seq_code;
+      this.chn_id = data.chn_id;
     }
   }
 };

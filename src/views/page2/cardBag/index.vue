@@ -13,9 +13,17 @@
         slot="action"
         @click="onSearch">添加卡券</div>
     </van-search>
-    <card 
-      v-for="index in 2" 
+    <card
+      v-for="(card, index) in cards"
+      :title="card.name"
+      :left="card.amount"
+      :status="card.status"
       :key="index"/>
+    <div 
+      class="bar-bankcard" 
+      @click="$router.push({ name: 'bankcards'})">
+      绑定 <br> 结算卡
+    </div>
   </div>
 </template>
 
@@ -28,12 +36,50 @@ export default {
   },
   data() {
     return {
-      active: "1",
-      code: ""
+      active: 0,
+      code: "",
+      cards: []
     };
   },
+  computed: {
+    cardStatus() {
+      const arr = ["", "0", "1"];
+      return arr[this.active];
+    }
+  },
+  watch: {
+    active() {
+      this.getList();
+    }
+  },
+  created() {
+    this.getList();
+  },
   methods: {
-    onSearch() {}
+    onSearch() {},
+    getList() {
+      this.$apiService.getCardBagList(this.cardStatus).then(res => {
+        this.cards = res.data.data;
+      });
+    }
   }
 };
 </script>
+
+<style scoped lang="scss">
+.bar-bankcard {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #eee;
+  background-color: white;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 13px;
+}
+</style>

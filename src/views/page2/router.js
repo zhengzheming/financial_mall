@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Login from "@/views/page2/login";
-import bankCards from "@/views/page1/bankCards";
+import bankCards from "@/views/page2/bankCards";
 import bankcardAdd from "@/views/page1/bankCards/add";
 import cardBag from "@/views/page2/cardBag/index";
 
