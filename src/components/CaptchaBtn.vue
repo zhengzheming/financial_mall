@@ -10,8 +10,12 @@ export default {
   name: "CaptchaBtn",
   props: {
     info: {
-      type: Object,
+      type: [Object, String],
       default: () => ({})
+    },
+    fn: {
+      type: String,
+      default: "sendBankcardSms"
     }
   },
   data() {
@@ -40,8 +44,7 @@ export default {
     getVercode() {
       if (this.disableVercode) return;
       this.disableVercode = true;
-      this.$apiService
-        .sendBankcardSms(this.info)
+      this.$apiService[this.fn](this.info)
         .then(res => {
           this.$emit("sms-data", res.data);
           this.countdown().then(() => {

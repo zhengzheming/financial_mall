@@ -29,7 +29,8 @@
           placeholder="请输入短信验证码" >
           <captcha-btn
             slot="button"
-            :phone="phone"/>
+            :info="phone"
+            fn="getVercode"/>
         </van-field>
       </van-cell-group>
       <van-button
