@@ -9,6 +9,7 @@
       v-model="code"
       show-action
       placeholder="请输入红包兑换码">
+      <span slot="left-icon"/>
       <div
         slot="action"
         @click="onSearch">添加卡券</div>
@@ -18,9 +19,11 @@
       :title="card.name"
       :left="card.amount"
       :status="card.status"
+      :coupon-id="card.id"
+      :desc="card.remit_remark"
       :key="index"/>
-    <div 
-      class="bar-bankcard" 
+    <div
+      class="bar-bankcard"
       @click="$router.push({ name: 'bankcards'})">
       绑定 <br> 结算卡
     </div>
@@ -56,7 +59,12 @@ export default {
     this.getList();
   },
   methods: {
-    onSearch() {},
+    onSearch() {
+      this.$apiService.addTicket(this.code).then(() => {
+        this.$toast("添加成功");
+        this.getList();
+      });
+    },
     getList() {
       this.$apiService.getCardBagList(this.cardStatus).then(res => {
         this.cards = res.data.data;

@@ -35,9 +35,9 @@
         readonly
         label="手机号"
         class="align-center">
-        <captcha-btn 
-          slot="button" 
-          :info="captchaInfo" 
+        <captcha-btn
+          slot="button"
+          :info="captchaInfo"
           @sms-data="getSmsData"/>
       </van-field>
     </van-cell-group>
@@ -55,7 +55,7 @@
     </van-cell-group>
     <large-button
       :disabled="disableNext"
-      @click.native="addCard">添加银行卡</large-button>
+      @click.native="addCardFromOrigin">添加银行卡</large-button>
   </div>
 </template>
 
@@ -118,12 +118,19 @@ export default {
         this.bank_code = res.data.bank_code;
       });
     },
-    addCard() {
+    addCard(route) {
       this.$apiService.bindCard(this.bindCardInfo).then(() => {
-        this.$dialog.alert({
-          message: "你已添加银行卡"
-        });
+        this.$dialog
+          .alert({
+            message: "你已添加银行卡"
+          })
+          .then(() => {
+            this.$router.push(route);
+          });
       });
+    },
+    addCardFromOrigin() {
+      this.addCard({ name: "my" });
     },
     getSmsData(data) {
       this.seq_code = data.seq_code;

@@ -6,6 +6,11 @@ export default {
     return {
       type: "2"
     };
+  },
+  methods: {
+    addCardFromOrigin() {
+      this.addCard({ name: "cardbag" });
+    }
   }
 };
 </script>

@@ -7,6 +7,9 @@ export default function initInterceptor(request) {
     const inWhitelist = ["alipay", "getInfo"].some(key => {
       return new RegExp(key).test(config.url);
     });
+    if (res.code == 2002) {
+      return res;
+    }
     if (!inWhitelist && res.code != 0) {
       Toast(res.msg);
       return Promise.reject("status:error");

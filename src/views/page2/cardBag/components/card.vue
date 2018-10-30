@@ -10,7 +10,7 @@
         加油卡
       </div>
       <div
-        v-if="waiting" 
+        v-if="waiting"
         class="middle__desc">
         预计2小时内到账
       </div>
@@ -18,10 +18,11 @@
     <div class="right">
       <span v-if="waiting">转让中</span>
       <span v-else-if="used">已使用</span>
-      <van-button 
-        v-else 
-        type="primary" 
-        size="mini">转卖</van-button>
+      <van-button
+        v-else
+        type="primary"
+        size="mini"
+        @click="sellTicket">转卖</van-button>
     </div>
   </div>
 </template>
@@ -45,6 +46,10 @@ export default {
     status: {
       type: String,
       default: "2"
+    },
+    couponId: {
+      type: String,
+      default: ""
     }
   },
   computed: {
@@ -53,6 +58,25 @@ export default {
     },
     used() {
       return this.status == 2;
+    }
+  },
+  methods: {
+    sellTicket() {
+      this.$apiService.sellTicket(this.couponId).then(res => {
+        if (res.code == 0) {
+          this.$toast("转卖成功");
+        } else if (res.code == 2002) {
+          this.$dialog
+            .alert({
+              message: "暂未绑卡，无法进行转卖操作，请先进行绑卡操作"
+            })
+            .then(() => {
+              this.$router.push({ name: "bankcardadd" });
+            });
+        } else {
+          this.$toastr(res.msg);
+        }
+      });
     }
   }
 };
