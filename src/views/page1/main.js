@@ -14,6 +14,7 @@ import request from "@/api/mall/request";
 import "@/components";
 import api from "@/api";
 import extendValidator from "@/services/verify";
+import { Toast } from "vant";
 
 Vue.use(Vant);
 Vue.use(VeeValidate);
@@ -24,8 +25,21 @@ Vue.config.productionTip = false;
 Object.defineProperty(Vue.prototype, "$log", { value: window.console.log });
 Object.defineProperty(Vue.prototype, "$apiService", { value: api.mall });
 
+router.beforeEach((to, from, next) => {
+  if (!store.state.phone && to.name !== "login") {
+    Toast("请先登录");
+    next({ name: "login" });
+  } else {
+    next();
+  }
+});
 api.mall.getUserInfo().then(res => {
   store.dispatch("userinfo:get", res.data);
+  new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount("#app");
   if (res.code == 0) {
     // new Vue({
     //   router,
@@ -36,9 +50,3 @@ api.mall.getUserInfo().then(res => {
     router.replace({ name: "login" });
   }
 });
-
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount("#app");

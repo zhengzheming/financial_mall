@@ -8,6 +8,7 @@
         :value="tab.value"
         :key="index"
         :to="tab.route"
+        :url="tab.url"
         is-link/>
     </van-cell-group>
   </div>
@@ -62,12 +63,16 @@ export default {
     auth(val) {
       if (val) {
         this.authTab.value = "已认证";
+      } else {
+        this.authTab.url = "https://www.baidu.com";
       }
     }
   },
   created() {
     if (this.auth) {
       this.authTab.value = "已认证";
+    } else {
+      this.authTab.url = "https://www.baidu.com";
     }
   }
 };
