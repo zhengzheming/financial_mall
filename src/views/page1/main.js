@@ -12,6 +12,7 @@ import "@/assets/scss/overide.scss";
 import initInterceptor from "@/services/interceptors";
 import request from "@/api/mall/request";
 import "@/components";
+import "@/filter";
 import api from "@/api";
 import extendValidator from "@/services/verify";
 import { Toast } from "vant";
@@ -28,6 +29,7 @@ window.$apiService = api.mall;
 
 // 初始化操作
 store.dispatch("repayment:detail");
+store.dispatch("order:list");
 router.beforeEach((to, from, next) => {
   if (!store.state.phone && to.name !== "login") {
     Toast("请先登录");

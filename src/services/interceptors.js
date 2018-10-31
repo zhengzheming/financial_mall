@@ -8,8 +8,8 @@ export default function initInterceptor(request, router) {
       return new RegExp(key).test(config.url);
     });
     if (!inWhitelist && res.code != 0) {
-      if (["90301"].includes(res.code)) {
-        //  异常状态码特定处理
+      if (["90301", "90400", 2002].includes(res.code)) {
+        //  异常状态码特定处理, 2002: 未绑定银行卡
         return Promise.reject({
           status: `error`,
           res: res

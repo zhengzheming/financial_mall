@@ -3,7 +3,7 @@
     <van-cell-group>
       <van-cell
         :value="status"
-        title="订单编号："/>
+        :title="`订单编号：${order_id}`"/>
       <van-card
         :thumb="imageUrl"
         :price="price"
@@ -15,8 +15,10 @@
         <div class="order-card__count">
           共1件商品 小计: <span class="emp">￥{{ price }}</span>
         </div>
-        <div class="order-card__tips">
-          兑换码：122HSWW22     <span class="emp">（未使用）</span>
+        <div 
+          v-if="status == '已完成'" 
+          class="order-card__tips">
+          兑换码：{{ order.redeem_code }}
           <br>
           如需转卖，请登录“https：………………“
           <br>
@@ -50,6 +52,14 @@ export default {
     desc: {
       type: String,
       default: "描述"
+    },
+    order_id: {
+      type: String,
+      default: ""
+    },
+    order: {
+      type: Object,
+      default: () => ({})
     }
   }
 };
@@ -76,6 +86,10 @@ export default {
   }
   .van-card:not(:first-child) {
     margin-top: 0;
+  }
+  /deep/ .van-ellipsis {
+    overflow: visible;
+    white-space: pre-wrap;
   }
 }
 </style>

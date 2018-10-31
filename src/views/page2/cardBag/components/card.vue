@@ -3,7 +3,7 @@
     :class="{ used, waiting}"
     class="m-card bg-white mt-gap">
     <div class="left">
-      ￥800
+      ￥{{ left | formatCurrency }}
     </div>
     <div class="middle">
       <div class="middle__title">
@@ -65,6 +65,7 @@ export default {
       this.$apiService.sellTicket(this.couponId).then(res => {
         if (res.code == 0) {
           this.$toast("转卖成功");
+          this.$emit("success");
         } else if (res.code == 2002) {
           this.$dialog
             .alert({

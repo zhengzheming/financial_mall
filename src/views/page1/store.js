@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import goods from "@/services/goods";
 
 Vue.use(Vuex);
 
@@ -8,7 +9,8 @@ export default new Vuex.Store({
     phone: "",
     userinfo: {},
     hasRepayment: false,
-    repaymentDetail: {}
+    repaymentDetail: {},
+    orders: []
   },
   mutations: {},
   actions: {
@@ -37,6 +39,21 @@ export default new Vuex.Store({
             state.repaymentDetail = res.msg;
           }
         });
+    },
+    "order:list": function({ state }) {
+      window.$apiService.getOrderList().then(res => {
+        if (res.code == 0) {
+          state.orders = res.data.map(item => {
+            const targetGoods = goods.find(
+              goods => goods.goodsId == item.goods_id
+            );
+            return {
+              ...item,
+              ...targetGoods
+            };
+          });
+        }
+      });
     }
   }
 });

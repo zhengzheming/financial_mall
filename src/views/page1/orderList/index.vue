@@ -6,7 +6,9 @@
       :desc="item.desc"
       :price="item.price"
       :image-url="item.imageUrl"
-      :status="item.status"
+      :status="item.status_name"
+      :order_id="item.order_id"
+      :order="item"
       :key="index"/>
   </div>
 </template>
@@ -21,13 +23,13 @@ export default {
   },
   data() {
     return {
-      orders: goods
+      goods
     };
   },
-  created() {
-    this.$apiService.getOrderList().then(res => {
-      console.log(res);
-    });
+  computed: {
+    orders() {
+      return this.$store.state.orders;
+    }
   }
 };
 </script>

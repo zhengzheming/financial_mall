@@ -38,7 +38,12 @@ export default {
         {
           title: "订单列表",
           value: "",
-          route: { name: "orderlist" }
+          callback: () => {
+            if (this.orders.length == 0) {
+              return this.$toast("暂无订单");
+            }
+            this.$router.push({ name: "orderlist" });
+          }
         },
         {
           title: "基本信息认证",
@@ -69,6 +74,9 @@ export default {
     },
     repaymentMsg() {
       return !this.hasRepayment ? this.$store.state.repaymentDetail : "";
+    },
+    orders() {
+      return this.$store.state.orders;
     }
   },
   watch: {

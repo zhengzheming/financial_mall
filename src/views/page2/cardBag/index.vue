@@ -21,7 +21,8 @@
       :status="card.status"
       :coupon-id="card.id"
       :desc="card.remit_remark"
-      :key="index"/>
+      :key="index"
+      @success="getList"/>
     <div
       class="bar-bankcard"
       @click="$router.push({ name: 'bankcards'})">

@@ -11,6 +11,7 @@ import "vant/lib/vant-css/index.css";
 import "@/assets/scss/overide.scss";
 import "@/services/interceptors";
 import "@/components";
+import "@/filter";
 import api from "@/api";
 import extendValidator from "@/services/verify";
 import { Toast } from "vant";

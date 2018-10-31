@@ -3,7 +3,7 @@
     v-if="bankCode && validated"
     class="bank-cell">
     <div :class="`bank-logo ui-banklogo-s-${bank}`"/>
-    {{ bankname }} {{ cardType }} <span v-if="tailNo">({{ bankCode.slice(-4) }})</span>
+    {{ bankname }} {{ cardType }} <span v-if="tailNo">({{ bankCode.trim().slice(-4) }})</span>
   </div>
 </template>
 
