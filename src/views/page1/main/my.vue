@@ -10,7 +10,7 @@
         :to="tab.route"
         :url="tab.url"
         is-link
-        @click="tab.callback()"/>
+        @click="tabJump(tab)"/>
     </van-cell-group>
   </div>
 </template>
@@ -85,6 +85,13 @@ export default {
       this.authTab.value = "已认证";
     } else {
       this.authTab.url = "https://www.baidu.com";
+    }
+  },
+  methods: {
+    tabJump(tab) {
+      if (tab.callback) {
+        tab.callback();
+      }
     }
   }
 };
