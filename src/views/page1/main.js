@@ -24,7 +24,10 @@ initInterceptor(request, router);
 Vue.config.productionTip = false;
 Object.defineProperty(Vue.prototype, "$log", { value: window.console.log });
 Object.defineProperty(Vue.prototype, "$apiService", { value: api.mall });
+window.$apiService = api.mall;
 
+// 初始化操作
+store.dispatch("repayment:detail");
 router.beforeEach((to, from, next) => {
   if (!store.state.phone && to.name !== "login") {
     Toast("请先登录");

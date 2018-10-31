@@ -4,8 +4,8 @@
       <van-cell-group
         v-for="(card, index) in bankcards"
         :key="index">
-        <bank-card 
-          :bank-code="card.pay_acc" 
+        <bank-card
+          :bank-code="card.pay_acc"
           :acc_id="card.acc_id"/>
       </van-cell-group>
     </div>
@@ -29,15 +29,15 @@ export default {
       bankcards: []
     };
   },
-  methos: {
+  created() {
+    this.getBankcards();
+  },
+  methods: {
     getBankcards() {
       this.$apiService.getOwnBankCards(1).then(res => {
         this.bankcards = res.data || [];
       });
     }
-  },
-  created() {
-    this.getBankcards();
   }
 };
 </script>

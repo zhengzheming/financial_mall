@@ -9,7 +9,8 @@
         :key="index"
         :to="tab.route"
         :url="tab.url"
-        is-link/>
+        is-link
+        @click="tab.callback()"/>
     </van-cell-group>
   </div>
 </template>
@@ -27,7 +28,12 @@ export default {
         {
           title: "还款计划",
           value: "",
-          route: { name: "repayment" }
+          callback: () => {
+            if (!this.hasRepayment) {
+              return this.$toast(this.repaymentMsg);
+            }
+            this.$router.push({ name: "repayment" });
+          }
         },
         {
           title: "订单列表",
@@ -57,6 +63,12 @@ export default {
     },
     authTab() {
       return this.tabList.find(tab => tab.title === "基本信息认证");
+    },
+    hasRepayment() {
+      return this.$store.state.hasRepayment;
+    },
+    repaymentMsg() {
+      return !this.hasRepayment ? this.$store.state.repaymentDetail : "";
     }
   },
   watch: {

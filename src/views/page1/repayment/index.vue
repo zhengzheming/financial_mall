@@ -88,11 +88,10 @@ export default {
       ]
     };
   },
-  created() {
-    this.$apiService.getRepaymentDetail().then(res => {
-      this.cardNo = res.repay_ways.bank_card;
-      console.log(res);
-    });
+  computed: {
+    repaymetDetail() {
+      return this.$store.state.repaymentDetail;
+    }
   },
   methods: {
     getVercode() {

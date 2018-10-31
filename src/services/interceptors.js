@@ -8,13 +8,21 @@ export default function initInterceptor(request, router) {
       return new RegExp(key).test(config.url);
     });
     if (!inWhitelist && res.code != 0) {
-      if (res.code == 2002) {
-        return res;
+      if (["90301"].includes(res.code)) {
+        //  异常状态码特定处理
+        return Promise.reject({
+          status: `error`,
+          res: res
+        });
       } else if (res.code == 90100) {
+        // 请登录
         router.push({ name: "login" });
       }
       Toast(res.msg);
-      return Promise.reject("status:error");
+      return Promise.reject({
+        status: `error`,
+        res: res
+      });
     }
     return res;
   });
