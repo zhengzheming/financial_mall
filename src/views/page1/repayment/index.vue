@@ -94,11 +94,8 @@ export default {
     }
   },
   methods: {
-    getVercode() {
-      return this.$apiService.getRepaymentVercode();
-    },
     repay() {
-      this.getVercode(this.$store.state.phone).then(() => {
+      this.$store.dispatch("repayment:vercode").then(() => {
         this.$router.push({ name: "captcha" });
       });
     },

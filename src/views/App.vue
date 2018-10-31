@@ -12,6 +12,7 @@
   color: #2c3e50;
   background-color: #fafafa;
   min-height: 100vh;
+  overflow: hidden;
 }
 #nav {
   padding: 30px;

@@ -29,7 +29,7 @@
         title="逾期管理费"
         value="内容" />
     </van-cell-group>
-    <large-button>立即支付 1000.00 元</large-button>
+    <large-button @click.native="pay">立即支付 1000.00 元</large-button>
   </div>
 </template>
 
@@ -45,6 +45,27 @@ export default {
   computed: {
     item() {
       return this.$route.query;
+    }
+  },
+  created() {
+    this.$apiService.repayTrialDetail(this.item.goodsId);
+  },
+  methods: {
+    pay() {
+      this.$apiService.addOrder(this.item.goodsId).then(res => {
+        let status;
+        if (res.code == 0) {
+          status = "success";
+        } else {
+          status = "fail";
+        }
+        this.$router.push({
+          name: "goodsaudit",
+          query: {
+            status
+          }
+        });
+      });
     }
   }
 };

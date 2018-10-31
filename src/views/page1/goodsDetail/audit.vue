@@ -32,14 +32,14 @@
     <div
       v-else
       class="goods-audit__fail">
-      <van-icon 
-        name="fail" 
-        size="40px" 
+      <van-icon
+        name="fail"
+        size="40px"
         class="goods-audit__status-icon" />
       <p class="goods-audit__status-text">购买失败！您未能通过系统审核</p>
       <p class="goods-audit__tips">频繁操作将影响成功率，建议您7天后再试</p>
     </div>
-    <large-button @click.native="$router.push('/')">返回首页</large-button>
+    <large-button @click.native="$router.push({ name: 'goods'})">返回首页</large-button>
   </div>
 </template>
 

@@ -52,3 +52,8 @@
 .mt-gap + .mt-gap {
   margin-top: 10px;
 }
+
+.van-card__desc.van-ellipsis {
+  overflow: visible;
+  white-space: pre-wrap;
+}

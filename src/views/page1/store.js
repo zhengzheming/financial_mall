@@ -17,8 +17,10 @@ export default new Vuex.Store({
     updatePhone({ state }, phone) {
       state.phone = phone;
     },
-    repay() {
-      console.log(`付款`);
+    repay(a, data) {
+      window.$apiService.repay(data).then(res => {
+        console.log(res);
+      });
     },
     "bankcard:free": function() {
       console.log(`解绑银行卡...`);
@@ -32,6 +34,7 @@ export default new Vuex.Store({
         .getRepaymentDetail()
         .then(res => {
           state.repaymentDetail = res.data;
+          state.hasRepayment = true;
         })
         .catch(({ status, res }) => {
           if (status == "error") {
@@ -39,6 +42,9 @@ export default new Vuex.Store({
             state.repaymentDetail = res.msg;
           }
         });
+    },
+    "repayment:vercode": function({ state }) {
+      return window.$apiService.getRepaymentVercode(state.phone);
     },
     "order:list": function({ state }) {
       window.$apiService.getOrderList().then(res => {

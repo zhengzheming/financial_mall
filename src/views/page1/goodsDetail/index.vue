@@ -42,11 +42,9 @@ export default {
   methods: {
     buy(item) {
       if (!this.validate()) return;
-      this.$apiService.addOrder(item.goodsId).then(() => {
-        this.$router.push({
-          name: "goodspay",
-          query: item
-        });
+      this.$router.push({
+        name: "goodspay",
+        query: item
       });
     },
     validate() {
@@ -74,20 +72,21 @@ export default {
         auth: {
           content: "暂未完成认证，请先进行认证",
           confirmText: "立即认证",
-          callback() {
+          callback: () => {
             console.log(`暂未完成认证`);
           }
         },
         auditing: {
           content: "你有审核中的订单，暂时无法发起新的订单，请等待审核结果",
-          callback() {
+          callback: () => {
             console.log(`你有审核中的订单`);
           }
         },
         refund: {
           content: "你有一笔未还款的订单，请先还款后再进行购买操作",
           confirmText: "立即还款",
-          callback() {
+          callback: () => {
+            this.$router.push({ name: "repayment" });
             console.log(`你有一笔未还款的订单`);
           }
         }

@@ -38,6 +38,7 @@ export default {
       code: []
     };
   },
+  computed: {},
   methods: {
     onSuccess(data) {
       console.log(data);
@@ -56,6 +57,9 @@ export default {
       const codeArray = this.$refs.inputCode.codeArray;
       codeArray.pop();
       this.code.pop();
+    },
+    getVercode() {
+      this.$store.dispatch("repayment:vercode");
     }
   }
 };
@@ -68,7 +72,7 @@ export default {
   text-align: center;
   font-size: 14px;
   padding: 0 20px;
-  margin-top: 100px;
+  padding-top: 100px;
   .vue_input_code {
     margin-top: 30px;
     position: relative;

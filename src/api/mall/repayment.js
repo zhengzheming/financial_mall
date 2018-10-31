@@ -1,10 +1,10 @@
 import request from "./request";
-export function getRepaymentVercode(phone) {
+export function getRepaymentVercode(mobile) {
   return request({
     method: "get",
-    url: "/api/vercode",
+    url: "/loan/sendRepaymentSmsCode",
     data: {
-      phone
+      mobile
     }
   });
 }
@@ -20,5 +20,13 @@ export function getOrderList() {
   return request({
     url: "/order/getList",
     method: "post"
+  });
+}
+
+export function repay(data) {
+  return request({
+    method: "post",
+    url: "/loan/repayment",
+    data
   });
 }

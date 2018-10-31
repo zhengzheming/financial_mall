@@ -4,12 +4,16 @@ export default function initInterceptor(request, router) {
   request.interceptors.response.use(response => {
     const res = response.data;
     const config = response.config;
-    const inWhitelist = ["alipay", "getInfo"].some(key => {
+    const inWhitelist = ["alipay", "getInfo", "/order/add"].some(key => {
       return new RegExp(key).test(config.url);
     });
     if (!inWhitelist && res.code != 0) {
-      if (["90301", "90400", 2002].includes(res.code)) {
-        //  异常状态码特定处理, 2002: 未绑定银行卡
+      // 异常处理
+      const specUrl = ["/order/add", "/loan/replayPlanDetail"].some(key => {
+        return new RegExp(key).test(config.url);
+      });
+      if (specUrl) {
+        //  对特定接口的异常处理
         return Promise.reject({
           status: `error`,
           res: res
