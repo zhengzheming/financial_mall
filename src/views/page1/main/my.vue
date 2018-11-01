@@ -63,11 +63,17 @@ export default {
       //  实名认证
       return this.userinfo.auth_flag;
     },
+    bankcards() {
+      return this.$store.state.bankcards;
+    },
     userinfo() {
       return this.$store.state.userinfo;
     },
     authTab() {
       return this.tabList.find(tab => tab.title === "基本信息认证");
+    },
+    bankcardTab() {
+      return this.tabList.find(tab => tab.title === "银行卡管理");
     },
     hasRepayment() {
       return this.$store.state.hasRepayment;
@@ -86,6 +92,9 @@ export default {
       } else {
         this.authTab.url = "https://www.baidu.com";
       }
+    },
+    bankcards() {
+      this.bankcardTab.value = "";
     }
   },
   created() {
@@ -96,6 +105,7 @@ export default {
     }
     this.$store.dispatch("repayment:detail");
     this.$store.dispatch("order:list");
+    this.$store.dispatch("bankcard:list");
   },
   methods: {
     tabJump(tab) {

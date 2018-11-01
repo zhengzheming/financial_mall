@@ -10,7 +10,9 @@ export default new Vuex.Store({
     userinfo: {},
     hasRepayment: false,
     repaymentDetail: {},
-    orders: []
+    orders: [],
+    bankcards: [],
+    latestBankcard: null
   },
   mutations: {},
   actions: {
@@ -57,6 +59,11 @@ export default new Vuex.Store({
             };
           });
         }
+      });
+    },
+    "bankcard:list": function({ state }) {
+      window.$apiService.getOwnBankCards(1).then(res => {
+        state.bankcards = res.data || [];
       });
     }
   }

@@ -24,19 +24,17 @@ export default {
   components: {
     BankCard
   },
-  data() {
-    return {
-      bankcards: []
-    };
+  computed: {
+    bankcards() {
+      return this.$store.state.bankcards;
+    }
   },
   created() {
     this.getBankcards();
   },
   methods: {
     getBankcards() {
-      this.$apiService.getOwnBankCards(1).then(res => {
-        this.bankcards = res.data || [];
-      });
+      this.$store.dispatch("bankcard:list");
     }
   }
 };

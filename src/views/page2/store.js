@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     phone: "",
-    userinfo: {}
+    userinfo: {},
+    bankcards: []
   },
   mutations: {},
   actions: {
@@ -22,6 +23,11 @@ export default new Vuex.Store({
     "userinfo:get": function({ state, dispatch }, userinfo) {
       state.userinfo = userinfo;
       dispatch("updatePhone", userinfo.mobile);
+    },
+    "bankcard:list": function({ state }) {
+      window.$apiService.getOwnBankCards(2).then(res => {
+        state.bankcards = res.data || [];
+      });
     }
   }
 });
