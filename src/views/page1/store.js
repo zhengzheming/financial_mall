@@ -21,7 +21,9 @@ export default new Vuex.Store({
     UPDATE_USERINFO(state, userinfo) {
       state.userinfo = userinfo;
     },
-    UPDATE_BANKCARDS() {}
+    UPDATE_BANKCARDS(state, bankcards) {
+      state.bankcards = bankcards;
+    }
   },
   actions: {
     updatePhone({ commit }, phone) {
@@ -69,15 +71,19 @@ export default new Vuex.Store({
         }
       });
     },
-    "bankcard:list": function({ state }) {
-      console.log(`hello get bankcard list....`);
-      window.$apiService.getOwnBankCards(1).then(res => {
-        if (res.code == 0) {
-          state.bankcards = res.data || [];
-        } else {
-          state.bankcards = [];
-        }
-      });
+    "bankcard:list": function({ commit }) {
+      window.$apiService
+        .getOwnBankCards(1)
+        .then(res => {
+          if (res.code == 0) {
+            commit("UPDATE_BANKCARDS", res.data || []);
+          }
+        })
+        .catch(({ status }) => {
+          if (status === "error") {
+            commit("UPDATE_BANKCARDS", []);
+          }
+        });
     }
   }
 });

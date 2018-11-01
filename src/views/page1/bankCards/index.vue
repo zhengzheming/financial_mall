@@ -34,7 +34,6 @@ export default {
   },
   methods: {
     getBankcards() {
-      console.log(`接班？。。。。`);
       this.$store.dispatch("bankcard:list");
     }
   }

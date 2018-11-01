@@ -113,6 +113,7 @@ export default {
   },
   methods: {
     checkBank() {
+      if (!this.cardNo) return;
       this.bankCode = this.cardNo;
       this.$apiService.getBankcardInfo(this.cardNo).then(res => {
         this.bank_code = res.data.bank_code;
