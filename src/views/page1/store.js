@@ -40,7 +40,7 @@ export default new Vuex.Store({
       dispatch("updatePhone", userinfo.mobile);
     },
     "repayment:detail": function({ state }) {
-      window.$apiService
+      return window.$apiService
         .getRepaymentDetail()
         .then(res => {
           state.repaymentDetail = res.data;
@@ -51,6 +51,7 @@ export default new Vuex.Store({
             state.hasRepayment = false;
             state.repaymentDetail = res.msg;
           }
+          return Promise.reject({ status, res });
         });
     },
     "repayment:vercode": function({ state }) {

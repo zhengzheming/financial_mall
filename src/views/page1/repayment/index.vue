@@ -69,10 +69,18 @@ export default {
     };
   },
   computed: {
+    hasRepayment() {
+      return this.$store.state.hasRepayment;
+    },
     repaymetDetail() {
-      return this.$store.state.repaymentDetail;
+      if (this.hasRepayment) {
+        return this.$store.state.repaymentDetail;
+      } else {
+        return {};
+      }
     },
     cardNo() {
+      if (!this.hasRepayment) return "";
       return this.repaymetDetail.repay_ways[0].bank_card;
     },
     dialogContent() {
@@ -100,7 +108,12 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("repayment:detail");
+    this.$store.dispatch("repayment:detail").catch(({ status, res }) => {
+      if (status == "error") {
+        this.$toast(res.msg);
+        history.back();
+      }
+    });
   },
   methods: {
     repay() {
