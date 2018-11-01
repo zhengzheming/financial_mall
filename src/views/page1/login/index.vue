@@ -25,6 +25,8 @@
           :error-message="errors.first('vercode')"
           name="vercode"
           maxlength="6"
+          type="number"
+          pattern="[0-9]*"
           clearable
           placeholder="请输入短信验证码" >
           <captcha-btn
