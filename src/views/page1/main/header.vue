@@ -2,7 +2,7 @@
   <div class="my-header">
     <div class="avatar">
       <img
-        :src="avatar"
+        src="~@/assets/imgs/default_avatar.png"
         alt="">
     </div>
     <div class="name">{{ userinfo.real_name }}</div>

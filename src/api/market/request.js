@@ -1,8 +1,12 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "/exchange"
+  baseURL: "/exchange",
+  headers: {
+    common: {
+      HTTP_X_REQUEST_FROM: "exchange"
+    }
+  }
 });
-instance.defaults.headers.common["HTTP_X_REQUEST_FROM"] = "exchange";
 
 export default instance;

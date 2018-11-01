@@ -52,7 +52,7 @@ export default {
           verify_code: data.join("")
         })
         .then(() => {
-          window.hostory.back();
+          this.$router.push({ name: "my" });
         });
     },
     onKeybordInput(key) {
