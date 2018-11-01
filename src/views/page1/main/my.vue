@@ -48,8 +48,13 @@ export default {
         },
         {
           title: "基本信息认证",
-          value: "",
-          route: ""
+          value: "未认证",
+          callback: () => {
+            if (this.auth) {
+              return;
+            }
+            this.$router.push({ name: "auth" });
+          }
         },
         {
           title: "银行卡管理",
@@ -90,8 +95,6 @@ export default {
     auth(val) {
       if (val) {
         this.authTab.value = "已认证";
-      } else {
-        this.authTab.url = "https://www.baidu.com";
       }
     },
     bankcards(val) {

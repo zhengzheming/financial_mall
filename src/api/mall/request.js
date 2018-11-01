@@ -4,7 +4,7 @@ const instance = axios.create({
   baseURL: "/mall",
   headers: {
     common: {
-      HTTP_X_REQUEST_FROM: "mall"
+      "X-REQUEST-FROM": "mall"
     }
   }
 });

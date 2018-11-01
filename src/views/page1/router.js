@@ -79,6 +79,13 @@ export default new Router({
       path: "/bankcards/add",
       name: "bankcardadd",
       component: bankcardAdd
+    },
+    {
+      path: "auth",
+      name: "auth",
+      beforeRouteEnter() {
+        location.href = "http://172.16.5.59:4001/public/index.html";
+      }
     }
   ]
 });

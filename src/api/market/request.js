@@ -4,7 +4,7 @@ const instance = axios.create({
   baseURL: "/exchange",
   headers: {
     common: {
-      HTTP_X_REQUEST_FROM: "exchange"
+      "X-REQUEST-FROM": "exchange"
     }
   }
 });

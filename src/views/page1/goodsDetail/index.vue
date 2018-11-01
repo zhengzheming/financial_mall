@@ -73,12 +73,14 @@ export default {
           content: "暂未完成认证，请先进行认证",
           confirmText: "立即认证",
           callback: () => {
+            this.$router.push({ name: "auth" });
             console.log(`暂未完成认证`);
           }
         },
         auditing: {
           content: "你有审核中的订单，暂时无法发起新的订单，请等待审核结果",
           callback: () => {
+            this.$router.push({ name: "orderlist" });
             console.log(`你有审核中的订单`);
           }
         },
