@@ -9,6 +9,7 @@
         :key="index"
         :to="tab.route"
         :url="tab.url"
+        class="my-cell"
         is-link
         @click="tabJump(tab)"/>
     </van-cell-group>
@@ -93,8 +94,15 @@ export default {
         this.authTab.url = "https://www.baidu.com";
       }
     },
-    bankcards() {
-      this.bankcardTab.value = "";
+    bankcards(val) {
+      const card = val[0];
+      if (card) {
+        this.bankcardTab.value = `${card.bank_name} ${
+          card.card_type_name
+        } (${card.pay_acc.slice(-4)})`;
+      } else {
+        this.bankcardTab.value = "未绑卡";
+      }
     }
   },
   created() {
@@ -116,3 +124,11 @@ export default {
   }
 };
 </script>
+
+<style scope lang="scss">
+.my {
+  /deep/ .my-cell {
+    white-space: nowrap;
+  }
+}
+</style>
