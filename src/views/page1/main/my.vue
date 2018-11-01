@@ -53,7 +53,7 @@ export default {
         },
         {
           title: "银行卡管理",
-          value: "",
+          value: "未绑卡",
           route: { name: "bankcards" }
         }
       ]

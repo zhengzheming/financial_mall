@@ -62,6 +62,7 @@ export default new Vuex.Store({
       });
     },
     "bankcard:list": function({ state }) {
+      console.log(`hello get bankcard list....`);
       window.$apiService.getOwnBankCards(1).then(res => {
         state.bankcards = res.data || [];
       });
