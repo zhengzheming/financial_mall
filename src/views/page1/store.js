@@ -14,10 +14,18 @@ export default new Vuex.Store({
     bankcards: [],
     latestBankcard: null
   },
-  mutations: {},
-  actions: {
-    updatePhone({ state }, phone) {
+  mutations: {
+    UPDATE_PHONE(state, phone) {
       state.phone = phone;
+    },
+    UPDATE_USERINFO(state, userinfo) {
+      state.userinfo = userinfo;
+    },
+    UPDATE_BANKCARDS() {}
+  },
+  actions: {
+    updatePhone({ commit }, phone) {
+      commit("UPDATE_PHONE", phone);
     },
     repay(a, data) {
       return window.$apiService.repay(data);
@@ -25,8 +33,8 @@ export default new Vuex.Store({
     "bankcard:free": function() {
       console.log(`解绑银行卡...`);
     },
-    "userinfo:get": function({ state, dispatch }, userinfo) {
-      state.userinfo = userinfo;
+    "userinfo:get": function({ dispatch, commit }, userinfo) {
+      commit("UPDATE_USERINFO", userinfo);
       dispatch("updatePhone", userinfo.mobile);
     },
     "repayment:detail": function({ state }) {
@@ -64,7 +72,11 @@ export default new Vuex.Store({
     "bankcard:list": function({ state }) {
       console.log(`hello get bankcard list....`);
       window.$apiService.getOwnBankCards(1).then(res => {
-        state.bankcards = res.data || [];
+        if (res.code == 0) {
+          state.bankcards = res.data || [];
+        } else {
+          state.bankcards = [];
+        }
       });
     }
   }

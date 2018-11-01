@@ -6,13 +6,13 @@
         :key="index">
         <bank-card
           :bank-code="card.pay_acc"
-          :acc_id="card.acc_id"/>
+          :acc_id="card.acc_id"
+          @free="getBankcards"/>
       </van-cell-group>
     </div>
     <large-button
       v-if="bankcards.length == 0"
       class="bank-cards__add"
-      @free="getBankcards"
       @click.native="$router.push({ name: 'bankcardadd'})">+ 添加银行卡</large-button>
   </div>
 </template>
@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     getBankcards() {
+      console.log(`接班？。。。。`);
       this.$store.dispatch("bankcard:list");
     }
   }
