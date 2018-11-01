@@ -73,7 +73,10 @@ export default {
           content: "暂未完成认证，请先进行认证",
           confirmText: "立即认证",
           callback: () => {
-            this.$router.push({ name: "auth" });
+            this.$router.push({
+              name: "auth",
+              query: { from_url: location.href, userid: this.userinfo.user_id }
+            });
             console.log(`暂未完成认证`);
           }
         },
