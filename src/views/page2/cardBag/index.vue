@@ -62,6 +62,9 @@ export default {
   },
   methods: {
     onSearch() {
+      if (!this.code) {
+        return this.$toast("请输入兑换码");
+      }
       this.$apiService.addTicket(this.code).then(() => {
         this.$toast("添加成功");
         this.getList();
