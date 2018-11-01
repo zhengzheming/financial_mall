@@ -127,7 +127,10 @@ export default {
 
 <style scope lang="scss">
 .my {
-  /deep/ .my-cell {
+  /deep/ .my-cell .van-cell__value {
+    display: flex;
+    flex-direction: row-reverse;
+    overflow: visible;
     white-space: nowrap;
   }
 }
