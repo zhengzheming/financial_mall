@@ -2,7 +2,8 @@
   <div class="card-bag layout-grow">
     <van-tabs v-model="active">
       <van-tab title="全部"/>
-      <van-tab title="未使用"/>
+      <van-tab title="转卖"/>
+      <van-tab title="转让中"/>
       <van-tab title="已使用"/>
     </van-tabs>
     <van-search
@@ -47,7 +48,7 @@ export default {
   },
   computed: {
     cardStatus() {
-      const arr = ["", "0", "1"];
+      const arr = ["", "0", "1", "2"];
       return arr[this.active];
     }
   },
