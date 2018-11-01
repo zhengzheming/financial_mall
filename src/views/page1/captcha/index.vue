@@ -38,13 +38,22 @@ export default {
       code: []
     };
   },
-  computed: {},
+  computed: {
+    query() {
+      return this.$route.query;
+    }
+  },
   methods: {
     onSuccess(data) {
-      console.log(data);
-      this.$store.dispatch("repay").then(() => {
-        window.hostory.back();
-      });
+      this.$store
+        .dispatch("repay", {
+          loan_no: this.query.loan_no,
+          plan_id: this.query.plan_id,
+          verify_code: data.join("")
+        })
+        .then(() => {
+          window.hostory.back();
+        });
     },
     onKeybordInput(key) {
       if (this.code.length === 6) return;
@@ -91,6 +100,9 @@ export default {
       color: #0089ff;
       font-size: 13px;
     }
+  }
+  /deep/ .input span {
+    color: #000 !important;
   }
 }
 </style>

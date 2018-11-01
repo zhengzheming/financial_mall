@@ -2,7 +2,7 @@
   <div class="repayment">
     <van-cell-group>
       <van-cell
-        :value="repaymetDetail.amount"
+        :value="repaymetDetail.repay_amount"
         title="">
         <template slot="title">
           <span class="title-fixed">待还金额</span>
@@ -18,6 +18,7 @@
         <template slot="title">
           <span class="title-fixed">到期还款日</span>
           <span
+            v-if="repaymetDetail.overdue_day > 0"
             class="repayment__outdate">已逾期{{ repaymetDetail.overdue_day }}天</span>
         </template>
       </van-cell>
@@ -54,9 +55,6 @@
         <div class="second">
           {{ cell.second }}
         </div>
-        <div class="third">
-          {{ cell.third }}
-        </div>
       </div>
     </van-dialog>
   </div>
@@ -67,24 +65,7 @@ export default {
   name: "Repayment",
   data() {
     return {
-      detailDialogShown: false,
-      dialogContent: [
-        {
-          first: "2018-10-14",
-          second: "本金",
-          third: "3000.00"
-        },
-        {
-          first: "2018-10-14",
-          second: "本金",
-          third: "3000.00"
-        },
-        {
-          first: "2018-10-14",
-          second: "预期利息",
-          third: "3000.00"
-        }
-      ]
+      detailDialogShown: false
     };
   },
   computed: {
@@ -93,6 +74,29 @@ export default {
     },
     cardNo() {
       return this.repaymetDetail.repay_ways[0].bank_card;
+    },
+    dialogContent() {
+      const result = [
+        {
+          first: "本金",
+          second: this.repaymetDetail.amount
+        },
+        {
+          first: "利息",
+          second: this.repaymetDetail.interest
+        },
+        {
+          first: "管理费",
+          second: this.repaymetDetail.management_fee
+        }
+      ];
+      if (this.repaymetDetail.management_fee > 0) {
+        result.push({
+          first: "逾期管理费",
+          second: this.repaymetDetail.overdue_fee
+        });
+      }
+      return result;
     }
   },
   created() {
@@ -101,7 +105,13 @@ export default {
   methods: {
     repay() {
       this.$store.dispatch("repayment:vercode").then(() => {
-        this.$router.push({ name: "captcha" });
+        this.$router.push({
+          name: "captcha",
+          query: {
+            loan_no: this.repaymetDetail.loan_no,
+            plan_id: this.repaymetDetail.plan_id
+          }
+        });
       });
     },
     showDetailDialog() {

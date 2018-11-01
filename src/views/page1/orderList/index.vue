@@ -30,6 +30,9 @@ export default {
     orders() {
       return this.$store.state.orders;
     }
+  },
+  created() {
+    this.$store.dispatch("order:list");
   }
 };
 </script>

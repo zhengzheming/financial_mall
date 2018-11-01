@@ -18,9 +18,7 @@ export default new Vuex.Store({
       state.phone = phone;
     },
     repay(a, data) {
-      window.$apiService.repay(data).then(res => {
-        console.log(res);
-      });
+      return window.$apiService.repay(data);
     },
     "bankcard:free": function() {
       console.log(`解绑银行卡...`);
