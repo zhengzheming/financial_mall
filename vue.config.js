@@ -13,13 +13,13 @@ module.exports = {
   pages: {
     mall: {
       entry: "src/views/page1/main.js",
-      filename: "mall.html",
+      filename: "mall_index.html",
       template: "public/index.html",
       title: "金融商城"
     },
     market: {
       entry: "src/views/page2/main.js",
-      filename: "market.html",
+      filename: "market_index.html",
       template: "public/index.html",
       title: "二级市场"
     }
