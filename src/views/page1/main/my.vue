@@ -94,6 +94,8 @@ export default {
     } else {
       this.authTab.url = "https://www.baidu.com";
     }
+    this.$store.dispatch("repayment:detail");
+    this.$store.dispatch("order:list");
   },
   methods: {
     tabJump(tab) {

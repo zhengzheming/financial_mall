@@ -10,23 +10,23 @@
       <p class="goods-audit__tips">成功提交审核，请留意系统下发的短信通知</p>
       <van-cell-group class="goods-audit__info">
         <van-cell
-          title="支付金额"
-          value="￥1000" />
+          :value="repayInfo.amount"
+          title="支付金额" />
         <van-cell
           title="支付方式"
-          value="￥1000" />
+          value="信用支付" />
         <van-cell
-          title="预计到期还款日"
-          value="￥1000" />
+          :value="repayInfo.repay_date"
+          title="预计到期还款日" />
         <van-cell
-          title="利息"
-          value="￥1000" />
+          :value="repayInfo.interest"
+          title="利息" />
         <van-cell
-          title="管理费"
-          value="￥1000" />
+          :value="repayInfo.management_fee"
+          title="管理费" />
         <van-cell
-          title="逾期管理费"
-          value="￥1000" />
+          :value="repayInfo.overdue_fee"
+          title="逾期管理费" />
       </van-cell-group>
     </div>
     <div
@@ -49,6 +49,9 @@ export default {
   computed: {
     query() {
       return this.$route.query;
+    },
+    repayInfo() {
+      return this.query.repayInfo;
     }
   }
 };

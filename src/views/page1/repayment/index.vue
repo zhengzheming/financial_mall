@@ -2,8 +2,8 @@
   <div class="repayment">
     <van-cell-group>
       <van-cell
-        title=""
-        value="3180.00">
+        :value="repaymetDetail.amount"
+        title="">
         <template slot="title">
           <span class="title-fixed">待还金额</span>
           <van-button
@@ -13,12 +13,12 @@
         </template>
       </van-cell>
       <van-cell
-        title="到期还款日"
-        value="2018-10-14">
+        :value="repaymetDetail.repay_date"
+        title="到期还款日">
         <template slot="title">
           <span class="title-fixed">到期还款日</span>
           <span
-            class="repayment__outdate">已逾期1天</span>
+            class="repayment__outdate">已逾期{{ repaymetDetail.overdue_day }}天</span>
         </template>
       </van-cell>
     </van-cell-group>
@@ -27,8 +27,8 @@
         title="到账时间"
         value="预计实时到账"/>
       <van-cell
-        title="还款金额"
-        value="3180.00"/>
+        :value="repaymetDetail.repay_amount"
+        title="还款金额"/>
     </van-cell-group>
     <van-panel title="还款方式">
       <div class="repayment__ways">
@@ -67,7 +67,6 @@ export default {
   name: "Repayment",
   data() {
     return {
-      cardNo: "6228430120000000000",
       detailDialogShown: false,
       dialogContent: [
         {
@@ -91,7 +90,13 @@ export default {
   computed: {
     repaymetDetail() {
       return this.$store.state.repaymentDetail;
+    },
+    cardNo() {
+      return this.repaymetDetail.repay_ways[0].bank_card;
     }
+  },
+  created() {
+    this.$store.dispatch("repayment:detail");
   },
   methods: {
     repay() {

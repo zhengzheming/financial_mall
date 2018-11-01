@@ -11,25 +11,25 @@
     </van-cell-group>
     <van-cell-group>
       <van-cell
-        title="订单金额"
-        value="￥1000" />
+        :value="repayInfo.amount"
+        title="订单金额" />
     </van-cell-group>
 
     <van-cell-group>
       <van-cell
-        title="预计到期还款日"
-        value="内容" />
+        :value="repayInfo.repay_date"
+        title="预计到期还款日" />
       <van-cell
-        title="利息"
-        value="内容" />
+        :value="repayInfo.interest"
+        title="利息" />
       <van-cell
-        title="管理费"
-        value="内容" />
+        :value="repayInfo.management_fee"
+        title="管理费" />
       <van-cell
-        title="逾期管理费"
-        value="内容" />
+        :value="repayInfo.overdue_fee"
+        title="逾期管理费" />
     </van-cell-group>
-    <large-button @click.native="pay">立即支付 1000.00 元</large-button>
+    <large-button @click.native="pay">立即支付 {{ repayInfo.amount }} 元</large-button>
   </div>
 </template>
 
@@ -42,30 +42,43 @@ export default {
       default: () => ({})
     }
   },
+  data() {
+    return {
+      repayInfo: {}
+    };
+  },
   computed: {
     item() {
       return this.$route.query;
     }
   },
   created() {
-    this.$apiService.repayTrialDetail(this.item.goodsId);
+    this.$apiService.repayTrialDetail(this.item.goodsId).then(res => {
+      this.repayInfo = res.data;
+    });
   },
   methods: {
     pay() {
-      this.$apiService.addOrder(this.item.goodsId).then(res => {
-        let status;
-        if (res.code == 0) {
-          status = "success";
-        } else {
-          status = "fail";
-        }
-        this.$router.push({
-          name: "goodsaudit",
-          query: {
-            status
+      this.$apiService
+        .addOrder(this.item.goodsId)
+        .then(res => {
+          let status;
+          if (res.code == 0) {
+            status = "success";
+          } else {
+            status = "fail";
           }
+          this.$router.push({
+            name: "goodsaudit",
+            query: {
+              status,
+              repayInfo: this.repayInfo
+            }
+          });
+        })
+        .catch(({ res }) => {
+          this.$toast(res.msg);
         });
-      });
     }
   }
 };

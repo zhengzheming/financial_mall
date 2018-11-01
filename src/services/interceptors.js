@@ -4,15 +4,15 @@ export default function initInterceptor(request, router) {
   request.interceptors.response.use(response => {
     const res = response.data;
     const config = response.config;
-    const inWhitelist = ["alipay", "getInfo", "/order/add"].some(key => {
+    const inWhitelist = ["alipay", "getInfo"].some(key => {
       return new RegExp(key).test(config.url);
     });
     if (!inWhitelist && res.code != 0) {
       // 异常处理
-      const specUrl = ["/order/add", "/loan/replayPlanDetail"].some(key => {
+      const isSpecUrl = ["/loan/replayPlanDetail"].some(key => {
         return new RegExp(key).test(config.url);
       });
-      if (specUrl) {
+      if (isSpecUrl) {
         //  对特定接口的异常处理
         return Promise.reject({
           status: `error`,

@@ -28,8 +28,6 @@ Object.defineProperty(Vue.prototype, "$apiService", { value: api.mall });
 window.$apiService = api.mall;
 
 // 初始化操作
-store.dispatch("repayment:detail");
-store.dispatch("order:list");
 router.beforeEach((to, from, next) => {
   if (!store.state.phone && to.name !== "login") {
     Toast("请先登录");
