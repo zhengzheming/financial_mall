@@ -1,5 +1,13 @@
 // vue.config.js
 module.exports = {
+  chainWebpack: config => {
+    config.module
+      .rule("image-webpack-loader")
+      .test(/\.(jpg|png|gif|svg)$/)
+      .use("image-webpack-loader")
+      .loader("image-webpack-loader")
+      .end();
+  },
   css: {
     loaderOptions: {
       // 给 sass-loader 传递选项
