@@ -86,7 +86,8 @@ export default new Router({
       beforeEnter(to) {
         const fromUrl = to.query.from_url;
         const userid = to.query.userid;
-        location.href = `http://172.16.5.59:4001/public/index.html?userid=${userid}&from_url=${encodeURIComponent(
+        const auth_url = process.env.VUE_APP_AUTH_URL;
+        location.href = `${auth_url}?userid=${userid}&from_url=${encodeURIComponent(
           fromUrl
         )}`;
       }
