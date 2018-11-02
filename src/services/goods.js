@@ -1,3 +1,7 @@
+import img1500_7 from "@/assets/imgs/1500-7.png";
+import img1500_14 from "@/assets/imgs/1500-14.png";
+import img1000_7 from "@/assets/imgs/1000-7@1x.png";
+import img1000_14 from "@/assets/imgs/1000-14@1x.png";
 export default [
   {
     title: "加油卡 7天",
@@ -13,8 +17,7 @@ export default [
       "7、逾期管理费：按剩余本金万分之六/天收取",
       "8、还款方式：主动还款或还款日当天10点从绑定银行卡中自动代扣。支持提前还款但利息不减免"
     ],
-    imageUrl:
-      "https://img13.360buyimg.com/n7/jfs/t6922/6/1446378781/124618/a4558d00/598194eeN0485ec53.jpg",
+    imageUrl: img1000_7,
     price: "1000",
     goodsId: 1
   },
@@ -32,8 +35,7 @@ export default [
       "7、逾期管理费：按剩余本金万分之六/天收取",
       "8、还款方式：主动还款或还款日当天10点从绑定银行卡中自动代扣。支持提前还款但利息不减免"
     ],
-    imageUrl:
-      "https://img13.360buyimg.com/n7/jfs/t6922/6/1446378781/124618/a4558d00/598194eeN0485ec53.jpg",
+    imageUrl: img1500_7,
     price: "1500",
     goodsId: 2
   },
@@ -51,8 +53,7 @@ export default [
       "7、逾期管理费：按剩余本金万分之六/天收取",
       "8、还款方式：主动还款或还款日当天10点从绑定银行卡中自动代扣。支持提前还款但利息不减免"
     ],
-    imageUrl:
-      "https://img13.360buyimg.com/n7/jfs/t6922/6/1446378781/124618/a4558d00/598194eeN0485ec53.jpg",
+    imageUrl: img1000_14,
     price: "1000",
     goodsId: 3
   },
@@ -70,8 +71,7 @@ export default [
       "7、逾期管理费：按剩余本金万分之六/天收取",
       "8、还款方式：主动还款或还款日当天10点从绑定银行卡中自动代扣。支持提前还款但利息不减免"
     ],
-    imageUrl:
-      "https://img13.360buyimg.com/n7/jfs/t6922/6/1446378781/124618/a4558d00/598194eeN0485ec53.jpg",
+    imageUrl: img1500_14,
     price: "1500",
     goodsId: 4
   }
