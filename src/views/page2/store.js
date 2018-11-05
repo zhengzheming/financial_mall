@@ -1,11 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { initStore } from "@/views/page1/store";
+import { storeObj } from "@/views/page1/store";
 
 Vue.use(Vuex);
 
-const storeObj = {
-  ...initStore,
+let initStoreObj = {
+  ...storeObj,
   "bankcard:list": function({ commit }) {
     window.$apiService
       .getOwnBankCards(2)
@@ -21,4 +21,4 @@ const storeObj = {
       });
   }
 };
-export default new Vuex.Store(storeObj);
+export default new Vuex.Store(initStoreObj);
