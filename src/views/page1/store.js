@@ -4,15 +4,14 @@ import goods from "@/services/goods";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+export const storeObj = {
   state: {
     phone: "",
     userinfo: {},
     hasRepayment: false,
     repaymentDetail: {},
     orders: [],
-    bankcards: [],
-    latestBankcard: null
+    bankcards: []
   },
   mutations: {
     UPDATE_PHONE(state, phone) {
@@ -23,6 +22,13 @@ export default new Vuex.Store({
     },
     UPDATE_BANKCARDS(state, bankcards) {
       state.bankcards = bankcards;
+    },
+    UPDATE_ORDER_LIST(state, orders) {
+      state.orders = orders;
+    },
+    CHECK_REPAYMENT(state, { hasRepayment, repaymentDetail }) {
+      state.hasRepayment = hasRepayment;
+      state.repaymentDetail = repaymentDetail;
     }
   },
   actions: {
@@ -39,17 +45,21 @@ export default new Vuex.Store({
       commit("UPDATE_USERINFO", userinfo);
       dispatch("updatePhone", userinfo.mobile);
     },
-    "repayment:detail": function({ state }) {
+    "repayment:detail": function({ commit }) {
       return window.$apiService
         .getRepaymentDetail()
         .then(res => {
-          state.repaymentDetail = res.data;
-          state.hasRepayment = true;
+          commit("CHECK_REPAYMENT", {
+            repaymentDetail: res.data,
+            hasRepayment: true
+          });
         })
         .catch(({ status, res }) => {
           if (status == "error") {
-            state.hasRepayment = false;
-            state.repaymentDetail = res.msg;
+            commit("CHECK_REPAYMENT", {
+              repaymentDetail: res.msg,
+              hasRepayment: false
+            });
           }
           return Promise.reject({ status, res });
         });
@@ -57,10 +67,10 @@ export default new Vuex.Store({
     "repayment:vercode": function({ state }) {
       return window.$apiService.getRepaymentVercode(state.phone);
     },
-    "order:list": function({ state }) {
+    "order:list": function({ commit }) {
       window.$apiService.getOrderList().then(res => {
         if (res.code == 0) {
-          state.orders = res.data.map(item => {
+          const orders = res.data.map(item => {
             const targetGoods = goods.find(
               goods => goods.goodsId == item.goods_id
             );
@@ -69,6 +79,7 @@ export default new Vuex.Store({
               ...targetGoods
             };
           });
+          commit("UPDATE_ORDER_LIST", orders);
         }
       });
     },
@@ -87,4 +98,5 @@ export default new Vuex.Store({
         });
     }
   }
-});
+};
+export default new Vuex.Store(storeObj);
