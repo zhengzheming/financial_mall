@@ -53,6 +53,7 @@ export default {
         })
         .then(() => {
           this.$router.push({ name: "my" });
+          this.$toast("还款成功");
         });
     },
     onKeybordInput(key) {
