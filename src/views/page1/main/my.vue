@@ -53,7 +53,10 @@ export default {
             if (this.auth) {
               return;
             }
-            this.$router.push({ name: "auth" });
+            this.$router.push({
+              name: "auth",
+              query: { from_url: location.href, userid: this.userinfo.user_id }
+            });
           }
         },
         {
@@ -111,8 +114,6 @@ export default {
   created() {
     if (this.auth) {
       this.authTab.value = "已认证";
-    } else {
-      this.authTab.url = "https://www.baidu.com";
     }
     this.$store.dispatch("repayment:detail");
     this.$store.dispatch("order:list");

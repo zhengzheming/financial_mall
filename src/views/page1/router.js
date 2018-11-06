@@ -87,6 +87,7 @@ export default new Router({
         const fromUrl = to.query.from_url;
         const userid = to.query.userid;
         const auth_url = process.env.VUE_APP_AUTH_URL;
+        console.log(fromUrl);
         location.href = `${auth_url}?userid=${userid}&from_url=${encodeURIComponent(
           fromUrl
         )}`;
