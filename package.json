@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build:dev": "vue-cli-service build --mode development",
+    "build:test": "vue-cli-service build --mode test",
+    "build:prod": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "deploy": "npm run build && rsync -rcv --progress dist/ root@dev141:/data/www/yunjiaplus_h5"
+    "deploy:dev": "npm run build:dev && rsync -rcv --progress dist/ root@dev141:/data/www/yunjiaplus_h5"
   },
   "dependencies": {
     "@babel/core": "^7.1.2",
