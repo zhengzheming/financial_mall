@@ -5,7 +5,9 @@ export default function initInterceptor(request, router) {
     const res = response.data;
     const config = response.config;
     const inWhitelist = ["alipay", "getInfo"].some(key => {
-      return new RegExp(key).test(config.url);
+      return (
+        new RegExp(key).test(config.url) || new RegExp(key).test(config.data)
+      );
     });
     if (!inWhitelist && res.code != 0) {
       // 异常处理

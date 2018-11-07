@@ -1,7 +1,7 @@
 import request from "./request";
 export function getRepaymentVercode(mobile) {
   return request({
-    method: "get",
+    method: "post",
     url: "/loan/sendRepaymentSmsCode",
     data: {
       mobile

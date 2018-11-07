@@ -9,4 +9,23 @@ const instance = axios.create({
   }
 });
 
-export default instance;
+const requestWrap = function(config) {
+  if (!config) return instance;
+  const baseURL = "exchange";
+  const cmd = baseURL + config.url.replace(/\//g, ".");
+  const data = config.data ? config.data : {};
+  return instance({
+    baseURL: "/",
+    method: "post",
+    params: {
+      encryption: 0,
+      ...data
+    },
+    data: {
+      cmd,
+      userid: "",
+      token: ""
+    }
+  });
+};
+export default requestWrap;
