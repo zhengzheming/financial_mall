@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     userid() {
-      return this.$store.state.userinfo.userid;
+      return this.$store.state.userinfo.user_id;
     },
     unbindParams() {
       return {

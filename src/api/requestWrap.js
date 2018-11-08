@@ -11,7 +11,6 @@ const requestWrap = function(config, instance, from) {
   if (inWhitelist) {
     return instance(config);
   }
-  console.log(data);
   return instance({
     baseURL: "/cgi",
     method: "post",
