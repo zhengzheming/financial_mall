@@ -4,16 +4,18 @@ export default function initInterceptor(request, router) {
   request.interceptors.response.use(response => {
     const res = response.data;
     const config = response.config;
+    const requestData = JSON.parse(config.data || "{}");
     const inWhitelist = ["alipay", "getInfo"].some(key => {
       return (
-        new RegExp(key).test(config.url) || new RegExp(key).test(config.data)
+        new RegExp(key).test(config.url) ||
+        new RegExp(key).test(requestData.cmd)
       );
     });
     if (!inWhitelist && res.code != 0) {
       // 异常处理
       const isSpecUrl = [
-        "/loan/replayPlanDetail",
-        "/bankCard/getBindBankCard"
+        "loan.replayPlanDetail",
+        "bankCard.getBindBankCard"
       ].some(key => {
         return new RegExp(key).test(config.url);
       });
@@ -23,7 +25,7 @@ export default function initInterceptor(request, router) {
           status: `error`,
           res: res
         });
-      } else if (res.code == 90100) {
+      } else if (res.code == 10000008) {
         // 请登录
         router.push({ name: "login" });
       }

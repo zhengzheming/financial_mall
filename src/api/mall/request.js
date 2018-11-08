@@ -14,8 +14,10 @@ const requestWrap = function(config) {
   const baseURL = "mall";
   const cmd = baseURL + config.url.replace(/\//g, ".");
   const data = config.data ? config.data : {};
+  const loginInfo = localStorage.getItem("login");
+  const token = JSON.parse(loginInfo);
   return instance({
-    baseURL: "/",
+    baseURL: "/cgi",
     method: "post",
     params: {
       encryption: 0,
@@ -23,8 +25,7 @@ const requestWrap = function(config) {
     },
     data: {
       cmd,
-      userid: "",
-      token: ""
+      ...token
     }
   });
 };

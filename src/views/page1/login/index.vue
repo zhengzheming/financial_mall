@@ -40,7 +40,7 @@
         type="primary"
         size="large"
         class="btn-login"
-        @click.prevent="login">登录</van-button>
+        @click.prevent="login(to)">登录</van-button>
     </form>
   </div>
 </template>
@@ -52,7 +52,8 @@ export default {
     return {
       phone: "",
       vercode: "",
-      errMessage: ""
+      errMessage: "",
+      to: "goods"
     };
   },
   computed: {
@@ -61,12 +62,13 @@ export default {
     }
   },
   methods: {
-    login() {
-      this.$apiService.login(this.phone, this.vercode).then(() => {
+    login(to) {
+      this.$apiService.login(this.phone, this.vercode).then(res => {
+        localStorage.setItem("login", JSON.stringify(res.data));
         this.$apiService.getUserInfo().then(res => {
           if (res.code == 0) {
             this.$store.dispatch("userinfo:get", res.data);
-            this.$router.push({ name: "goods" });
+            this.$router.push({ name: to });
           } else {
             this.$toast(res.msg);
           }

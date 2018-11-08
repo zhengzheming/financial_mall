@@ -29,7 +29,8 @@ window.$apiService = api.mall;
 
 // 初始化操作
 router.beforeEach((to, from, next) => {
-  if (!store.state.phone && to.name !== "login") {
+  const loginInfo = localStorage.getItem("login");
+  if (!loginInfo && to.name !== "login") {
     Toast("请先登录");
     next({ name: "login" });
   } else {
@@ -37,18 +38,13 @@ router.beforeEach((to, from, next) => {
   }
 });
 api.mall.getUserInfo().then(res => {
-  store.dispatch("userinfo:get", res.data);
   new Vue({
     router,
     store,
     render: h => h(App)
   }).$mount("#app");
   if (res.code == 0) {
-    // new Vue({
-    //   router,
-    //   store,
-    //   render: h => h(App)
-    // }).$mount("#app");
+    store.dispatch("userinfo:get", res.data);
   } else {
     router.replace({ name: "login" });
   }
