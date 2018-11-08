@@ -53,9 +53,14 @@ export default {
             if (this.auth) {
               return;
             }
+            const loginInfo = JSON.parse(localStorage.getItem("login"));
             this.$router.push({
               name: "auth",
-              query: { from_url: location.href, userid: this.userinfo.user_id }
+              query: {
+                from_url: location.href,
+                userid: this.userinfo.user_id,
+                token: loginInfo.token
+              }
             });
           }
         },

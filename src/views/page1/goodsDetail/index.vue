@@ -73,9 +73,14 @@ export default {
           content: "暂未完成认证，请先进行认证",
           confirmText: "立即认证",
           callback: () => {
+            const loginInfo = JSON.parse(localStorage.getItem("login"));
             this.$router.push({
               name: "auth",
-              query: { from_url: location.href, userid: this.userinfo.user_id }
+              query: {
+                from_url: location.href,
+                userid: this.userinfo.user_id,
+                token: loginInfo.token
+              }
             });
             console.log(`暂未完成认证`);
           }
