@@ -84,13 +84,19 @@ export default new Router({
       path: "auth",
       name: "auth",
       beforeEnter(to) {
-        const fromUrl = to.query.from_url;
-        const userid = to.query.userid;
         const auth_url = process.env.VUE_APP_AUTH_URL;
-        console.log(fromUrl);
-        location.href = `${auth_url}?userid=${userid}&from_url=${encodeURIComponent(
-          fromUrl
-        )}`;
+        const query = to.query;
+        const url = generateUrl(query, auth_url);
+        function generateUrl(query, auth_url) {
+          return Object.keys(query).reduce((acc, cur, index) => {
+            let prefix = "&";
+            if (index == 0) {
+              prefix = "?";
+            }
+            return `${acc}${prefix}&${cur}=${query[cur]}`;
+          }, `${auth_url}`);
+        }
+        location.href = url;
       }
     }
   ]
