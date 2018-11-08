@@ -16,6 +16,12 @@ const requestWrap = function(config) {
   const data = config.data ? config.data : {};
   const loginInfo = localStorage.getItem("login");
   const token = JSON.parse(loginInfo);
+  const inWhitelist = ["alipay"].some(key => {
+    return new RegExp(key).test(config.url);
+  });
+  if (inWhitelist) {
+    return instance(config);
+  }
   return instance({
     baseURL: "/cgi",
     method: "post",

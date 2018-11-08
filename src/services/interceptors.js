@@ -13,13 +13,13 @@ export default function initInterceptor(request, router) {
     });
     if (!inWhitelist && res.code != 0) {
       // 异常处理
-      const isSpecUrl = [
+      const isSpecCmd = [
         "loan.replayPlanDetail",
         "bankCard.getBindBankCard"
       ].some(key => {
-        return new RegExp(key).test(config.url);
+        return new RegExp(key).test(requestData.cmd);
       });
-      if (isSpecUrl) {
+      if (isSpecCmd) {
         //  对特定接口的异常处理
         return Promise.reject({
           status: `error`,

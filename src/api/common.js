@@ -13,7 +13,7 @@ export default function getFn(request) {
     },
     getOwnBankCards(type) {
       return request({
-        url: "bankCard/getBindBankCard",
+        url: "/bankCard/getBindBankCard",
         method: "post",
         data: {
           type

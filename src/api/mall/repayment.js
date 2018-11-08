@@ -12,7 +12,7 @@ export function getRepaymentVercode(mobile) {
 export function getRepaymentDetail() {
   return request({
     method: "post",
-    url: "loan/replayPlanDetail"
+    url: "/loan/replayPlanDetail"
   });
 }
 
