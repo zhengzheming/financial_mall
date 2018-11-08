@@ -77,6 +77,7 @@ export default {
             this.$router.push({
               name: "auth",
               query: {
+                from_url: location.href,
                 userid: this.userinfo.user_id,
                 token: loginInfo.token
               }
