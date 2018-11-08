@@ -28,6 +28,7 @@ export default function initInterceptor(request, router) {
       } else if (res.code == 10000008) {
         // 请登录
         router.push({ name: "login" });
+        res.msg = "请登录";
       }
       Toast(res.msg);
       return Promise.reject({

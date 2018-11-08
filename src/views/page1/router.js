@@ -93,7 +93,7 @@ export default new Router({
             if (index == 0) {
               prefix = "?";
             }
-            return `${acc}${prefix}&${cur}=${query[cur]}`;
+            return `${acc}${prefix}${cur}=${encodeURIComponent(query[cur])}`;
           }, `${auth_url}`);
         }
         location.href = url;
