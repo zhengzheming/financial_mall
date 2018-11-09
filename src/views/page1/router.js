@@ -98,6 +98,10 @@ export default new Router({
         }
         location.href = url;
       }
+    },
+    {
+      path: "*",
+      redirect: "/login"
     }
   ]
 });

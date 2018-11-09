@@ -29,6 +29,10 @@ export default new Router({
       path: "/bankcards/add",
       name: "bankcardadd",
       component: bankcardAdd
+    },
+    {
+      path: "*",
+      redirect: "/login"
     }
   ]
 });
