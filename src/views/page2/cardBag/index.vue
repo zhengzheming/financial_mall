@@ -16,7 +16,7 @@
         @click="onSearch">添加卡券</div>
     </van-search>
     <card
-      v-for="(card, index) in cards"
+      v-for="(card, index) in cardList"
       :title="card.name"
       :left="card.amount"
       :status="card.status"
@@ -43,21 +43,46 @@ export default {
     return {
       active: 0,
       code: "",
-      cards: []
+      cards: [],
+      cardList: []
     };
   },
   computed: {
     cardStatus() {
       const arr = ["", "0", "1", "2"];
       return arr[this.active];
+    },
+    allCards() {
+      return this.cards;
+    },
+    hasSellCards() {
+      return this.cards.filter(card => card.status == "0");
+    },
+    transferingCards() {
+      return this.cards.filter(card => card.status == "1");
+    },
+    usedCards() {
+      return this.cards.filter(card => card.status == "2");
     }
   },
   watch: {
-    active() {
-      this.getList();
+    active: {
+      handler: function(val) {
+        const map = [
+          "allCards",
+          "hasSellCards",
+          "transferingCards",
+          "usedCards"
+        ];
+        this.$emit("cardlist:update", this[map[val] || map["allCards"]]);
+      },
+      immediate: true
     }
   },
   created() {
+    this.$on("cardlist:update", data => {
+      this.cardList = data;
+    });
     this.getList();
   },
   methods: {
@@ -73,6 +98,7 @@ export default {
     getList() {
       this.$apiService.getCardBagList(this.cardStatus).then(res => {
         this.cards = res.data.data;
+        this.$emit("cardlist:update", this.cards);
       });
     }
   }
