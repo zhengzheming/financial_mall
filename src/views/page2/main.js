@@ -38,13 +38,14 @@ router.beforeEach((to, from, next) => {
 });
 api.market.getUserInfo().then(res => {
   // 登录态验证
-  store.dispatch("userinfo:get", res.data);
   new Vue({
     router,
     store,
     render: h => h(App)
   }).$mount("#app");
-  if (res.code != 0) {
+  if (res.code == 0) {
+    store.dispatch("userinfo:get", res.data);
+  } else {
     router.replace({ name: "login" });
   }
 });
