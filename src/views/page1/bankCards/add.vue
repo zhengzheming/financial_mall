@@ -14,6 +14,7 @@
         v-model="cardId"
         :error-message="errors.first('cardId')"
         name="cardId"
+        maxlength="18"
         placeholder="请输入身份证号"
         clearable
         label="身份证号" />
