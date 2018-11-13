@@ -69,6 +69,7 @@ export default {
         } else if (res.code == 2002) {
           this.$dialog
             .alert({
+              title: "提示",
               message: "暂未绑卡，无法进行转卖操作，请先进行绑卡操作"
             })
             .then(() => {

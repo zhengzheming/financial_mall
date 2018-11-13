@@ -104,6 +104,7 @@ export default {
       const whichError = type;
       this.$dialog
         .confirm({
+          title: "提示",
           message: messageMap[whichError].content,
           showConfirmButton: !!messageMap[whichError].confirmText,
           confirmButtonText: messageMap[whichError].confirmText

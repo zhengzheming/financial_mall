@@ -50,6 +50,7 @@ export default {
     freeCard() {
       this.$dialog
         .confirm({
+          title: "提示",
           message: "解除绑定后将无法进行还款操作，确定解绑该银行卡吗？"
         })
         .then(() => {

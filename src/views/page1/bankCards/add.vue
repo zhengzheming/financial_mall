@@ -125,6 +125,7 @@ export default {
         if (res.code == 0) {
           this.$dialog
             .alert({
+              title: "提示",
               message: "你已添加银行卡"
             })
             .then(() => {
