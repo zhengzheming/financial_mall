@@ -15,8 +15,8 @@
         <div class="order-card__count">
           共1件商品 小计: <span class="emp">￥{{ price }}</span>
         </div>
-        <div 
-          v-if="status == '已完成'" 
+        <div
+          v-if="order.redeem_code"
           class="order-card__tips">
           兑换码：{{ order.redeem_code }}
           <br>
